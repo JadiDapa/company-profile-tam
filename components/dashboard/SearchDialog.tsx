@@ -9,14 +9,10 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { SetStateAction, useState } from "react";
 
 export default function SearchDialog() {
-  const { data: session } = useSession();
-  const userRole = session?.user?.role; // Assumes role is stored in session.user.role
-
   const [search, setSearch] = useState("");
   const [pages] = useState([
     {
@@ -69,8 +65,8 @@ export default function SearchDialog() {
     const matchesSearch = page.name
       .toLowerCase()
       .includes(search.toLowerCase());
-    const isAllowed = page.adminOnly ? userRole === "admin" : true;
-    return matchesSearch && isAllowed;
+
+    return matchesSearch;
   });
 
   return (
@@ -82,10 +78,10 @@ export default function SearchDialog() {
         <DialogTrigger className="hidden w-full text-start text-gray-400 lg:block">
           Search
         </DialogTrigger>
-        <DialogContent className="flex flex-col px-0 pb-0 pt-4 lg:w-[660px]">
+        <DialogContent className="flex flex-col px-0 pt-4 pb-0 lg:w-[660px]">
           <div className="relative w-80 pl-8">
             <DialogTitle>
-              <Search className="absolute left-10 top-1.5 text-sm text-slate-400" />
+              <Search className="absolute top-1.5 left-10 text-sm text-slate-400" />
             </DialogTitle>
             <Input
               type="text"

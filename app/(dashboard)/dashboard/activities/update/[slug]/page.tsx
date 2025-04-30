@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import slugify from "slugify";
 import { toast } from "sonner";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getActivityBySlug, updateActivity } from "@/lib/networks/activity";
 import { CreateActivityType } from "@/lib/types/activity";
@@ -28,15 +28,17 @@ const formSchema = z.object({
   content: z.string().min(1),
 });
 
-export function UpdateActivity({ params }: { params: { slug: string } }) {
+export default function UpdateActivity() {
   const [picture, setPicture] = useState<File>();
   const [pictureUrl, setPictureUrl] = useState<string>();
+  const params = useParams();
+
   const router = useRouter();
 
   const queryClient = useQueryClient();
 
   const { data: activity } = useQuery({
-    queryFn: () => getActivityBySlug(params.slug),
+    queryFn: () => getActivityBySlug(params.slug as string),
     queryKey: ["activities", params.slug],
   });
 
@@ -49,7 +51,7 @@ export function UpdateActivity({ params }: { params: { slug: string } }) {
 
   const { mutate: onUpdateActivity, isPending } = useMutation({
     mutationFn: (values: CreateActivityType) =>
-      updateActivity(params.slug, values),
+      updateActivity(params.slug as string, values),
     onSuccess: () => {
       toast.success("Activities Successfully Modified!");
       queryClient.invalidateQueries({ queryKey: ["activities", params.slug] });
@@ -223,5 +225,3 @@ export function UpdateActivity({ params }: { params: { slug: string } }) {
     </section>
   );
 }
-
-export default UpdateActivity;

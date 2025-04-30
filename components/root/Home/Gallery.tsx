@@ -1,10 +1,18 @@
+"use client";
+
 import { Stars } from "lucide-react";
 import Image from "next/image";
 import { MarqueeGallery } from "./GalleryMarquee";
 import { getAllGalleries } from "@/lib/networks/gallery";
+import { useQuery } from "@tanstack/react-query";
 
-export default async function Gallery() {
-  const gallery = await getAllGalleries();
+export default function Gallery() {
+  const { data: galleries } = useQuery({
+    queryFn: getAllGalleries,
+    queryKey: ["galleries"],
+  });
+
+  if (!galleries) return null;
 
   return (
     <section id="services" className="relative w-full py-24">
@@ -30,7 +38,7 @@ export default async function Gallery() {
         </p>
       </div>
 
-      <MarqueeGallery data={gallery} />
+      <MarqueeGallery data={galleries} />
     </section>
   );
 }

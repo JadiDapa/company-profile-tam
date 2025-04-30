@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import useSidebarStore from "@/stores/SidebarStore";
 import { House, Images, LogOut, NotebookPen, X } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -35,7 +35,6 @@ const userLink = [
 
 export default function Sidebar() {
   const { isSidebarOpen, closeSidebar } = useSidebarStore();
-  const { data: user } = useSession();
 
   const pathname = usePathname();
 
@@ -88,7 +87,6 @@ export default function Sidebar() {
         <ScrollArea className="h-[85vh] text-slate-100">
           <Accordion type="single" className="flex flex-col gap-2" collapsible>
             {userLink.map((item) => {
-              if (!item.public && user?.user.role === "employee") return null;
               return (
                 <div key={item.url}>
                   <Link

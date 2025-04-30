@@ -28,7 +28,7 @@ const formSchema = z.object({
   content: z.string().min(1),
 });
 
-export function CreateActivity() {
+export default function CreateActivity() {
   const [picture, setPicture] = useState<File>();
   const [pictureUrl, setPictureUrl] = useState<string>();
   const router = useRouter();
@@ -205,5 +205,3 @@ export function CreateActivity() {
     </section>
   );
 }
-
-export default CreateActivity;

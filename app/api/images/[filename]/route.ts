@@ -4,9 +4,9 @@ import { promises as fs } from "fs";
 
 export const GET = async (
   req: NextRequest,
-  { params }: { params: { filename: string } }
+  { params }: { params: Promise<{ filename: string }> },
 ) => {
-  const { filename } = params;
+  const { filename } = await params;
   const filePath = path.join(process.cwd(), "uploads", filename);
 
   try {
@@ -14,7 +14,7 @@ export const GET = async (
     return new NextResponse(file, {
       headers: { "Content-Type": "image/jpeg" },
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "File not found" }, { status: 404 });
   }
 };

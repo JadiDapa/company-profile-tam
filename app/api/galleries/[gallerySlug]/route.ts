@@ -4,10 +4,10 @@ import { fileUpload } from "@/lib/utils/file-upload";
 
 export async function GET(
   request: Request,
-  { params }: { params: { gallerySlug: string } },
+  { params }: { params: Promise<{ gallerySlug: string }> },
 ) {
   try {
-    const gallerySlug = params.gallerySlug;
+    const { gallerySlug } = await params;
     const result = await prisma.gallery.findUnique({
       where: {
         slug: gallerySlug,
@@ -27,10 +27,10 @@ export async function GET(
 
 export async function PUT(
   req: Request,
-  { params }: { params: { gallerySlug: string } },
+  { params }: { params: Promise<{ gallerySlug: string }> },
 ) {
   try {
-    const gallerySlug = params.gallerySlug;
+    const { gallerySlug } = await params;
 
     const formData = await req.formData();
 
@@ -76,10 +76,10 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { gallerySlug: string } },
+  { params }: { params: Promise<{ gallerySlug: string }> },
 ) {
   try {
-    const gallerySlug = params.gallerySlug;
+    const { gallerySlug } = await params;
     const result = await prisma.gallery.delete({
       where: {
         slug: gallerySlug,

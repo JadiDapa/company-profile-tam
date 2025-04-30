@@ -1,11 +1,19 @@
+"use client";
+
 import { getAllActivities } from "@/lib/networks/activity";
 import { formatDate } from "@/lib/utils/format-date";
+import { useQuery } from "@tanstack/react-query";
 import { Stars } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function Activities() {
-  const activities = await getAllActivities();
+export default function Activities() {
+  const { data: activities } = useQuery({
+    queryFn: getAllActivities,
+    queryKey: ["activities"],
+  });
+
+  if (!activities) return null;
 
   return (
     <section

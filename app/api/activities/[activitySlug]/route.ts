@@ -1,13 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { fileUpload } from "@/lib/utils/file-upload";
 
 export async function GET(
-  request: Request,
-  { params }: { params: { activitySlug: string } },
+  request: NextRequest,
+  { params }: { params: Promise<{ activitySlug: string }> },
 ) {
   try {
-    const activitySlug = params.activitySlug;
+    const { activitySlug } = await params;
     const result = await prisma.activity.findUnique({
       where: {
         slug: activitySlug,
@@ -26,11 +26,11 @@ export async function GET(
 }
 
 export async function PUT(
-  req: Request,
-  { params }: { params: { activitySlug: string } },
+  req: NextRequest,
+  { params }: { params: Promise<{ activitySlug: string }> },
 ) {
   try {
-    const activitySlug = params.activitySlug;
+    const { activitySlug } = await params;
 
     const formData = await req.formData();
 
@@ -79,11 +79,11 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { activitySlug: string } },
+  request: NextRequest,
+  { params }: { params: Promise<{ activitySlug: string }> },
 ) {
   try {
-    const activitySlug = params.activitySlug;
+    const { activitySlug } = await params;
     const result = await prisma.activity.delete({
       where: {
         slug: activitySlug,

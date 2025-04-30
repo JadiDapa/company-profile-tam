@@ -1,8 +1,10 @@
-import React from "react";
+"use client";
+
 import { Clock, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { getAllActivities } from "@/lib/networks/activity";
 import { format } from "date-fns";
+import { useQuery } from "@tanstack/react-query";
 
 interface LatestActivityProps {
   image: string;
@@ -12,8 +14,11 @@ interface LatestActivityProps {
   category: string;
 }
 
-export default async function LatestActivity({}: LatestActivityProps) {
-  const activities = await getAllActivities();
+export default function LatestActivity({}: LatestActivityProps) {
+  const { data: activities } = useQuery({
+    queryFn: getAllActivities,
+    queryKey: ["activities"],
+  });
 
   const latestActivity = activities?.[0];
 

@@ -1,7 +1,5 @@
 import { Bell } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { formatDate } from "@/lib/utils/format-date";
-import Link from "next/link";
+import { Popover, PopoverTrigger } from "../ui/popover";
 
 export default function Notifications() {
   return (
@@ -12,7 +10,7 @@ export default function Notifications() {
           <p className="text-xs text-white">{[]?.length}</p>
         </div>
       </PopoverTrigger>
-      {[] && (
+      {/* {[] && (
         <PopoverContent align="end" className="bg-tertiary w-96 p-0">
           <div className="relative flex items-center justify-between border-b px-6 py-4">
             <p className="">Notifications</p>
@@ -49,7 +47,7 @@ export default function Notifications() {
             ))}
           </div>
         </PopoverContent>
-      )}
+      )} */}
     </Popover>
   );
 }
