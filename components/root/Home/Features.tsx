@@ -7,17 +7,16 @@ const features = [
   {
     title: "Advanced Technology",
     description:
-      "Harness the power of cutting-edge technology to drive innovation and efficiency in your business.",
+      "Delivering exceptional service experiences to every customer and business partner.",
   },
   {
     title: "Seamless Integration",
     description:
-      "Integrate our solutions seamlessly into your existing infrastructure for a smooth transition.",
+      "Becoming the best solution and a trusted partner for every client and business associate.",
   },
   {
     title: "Scalability",
-    description:
-      "Our solutions are designed to grow with your business, ensuring long-term success.",
+    description: "Providing high-quality, timely, and professional services.",
   },
 ];
 
@@ -59,7 +58,7 @@ export default function Features() {
       </div>
       <div className="order-1 flex-1 space-y-4 lg:order-2 lg:px-12">
         <div className="text-primary border-primary flex max-w-fit items-center gap-2 rounded-full border-2 px-4 py-0.5">
-          <h3 className="font-medium">Features</h3>
+          <h3 className="font-medium">Mission</h3>
           <Stars className="size-4" />
         </div>
         <h2 className="text-3xl font-medium lg:text-5xl">
@@ -67,8 +66,8 @@ export default function Features() {
         </h2>
         <div className="">
           {features.map((feature) => (
-            <div key={feature.title} className="mt-4 flex items-center gap-4">
-              <CheckSquare2 className="text-primary size-4 lg:size-6" />
+            <div key={feature.title} className="mt-4 flex items-start gap-4">
+              <CheckSquare2 className="text-primary mt-0.5 size-4 lg:size-6" />
               <p className="text-muted-foreground flex-1 text-sm lg:text-base">
                 {feature.description}
               </p>

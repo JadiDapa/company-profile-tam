@@ -41,6 +41,7 @@
     "font-awesome": "^4.7.0",
     "fs": "^0.0.1-security",
     "lucide-react": "^0.487.0",
+    "motion": "^12.11.4",
     "next": "15.3.0",
     "next-auth": "^5.0.0-beta.25",
     "next-nprogress-bar": "^2.4.7",

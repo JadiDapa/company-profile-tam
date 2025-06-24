@@ -8,20 +8,20 @@ const resourcesLinks = [
     link: "/",
   },
   {
-    label: "Products",
-    link: "/product",
-  },
-  {
-    label: "Categories",
-    link: "/categories",
-  },
-  {
-    label: "Contact",
-    link: "/contact",
-  },
-  {
     label: "About",
     link: "/about",
+  },
+  {
+    label: "Services",
+    link: "/services",
+  },
+  {
+    label: "Activities",
+    link: "/activities",
+  },
+  {
+    label: "Gallery",
+    link: "/gallery",
   },
 ];
 
@@ -59,34 +59,33 @@ export default function Footer() {
   return (
     <footer
       id="footer"
-      className="bottom-0 left-0 border-t bg-primary pb-4 pt-12"
+      className="bg-primary bottom-0 left-0 border-t pt-12 pb-4"
     >
       <div className="flex flex-col gap-6 px-6 lg:px-24">
         <div className="relative mx-auto flex w-full flex-col gap-6">
           <div className="flex flex-col gap-9 text-sm md:gap-20 lg:flex-row">
-            <div className="flex flex-col gap-3">
-              <figure className="flex items-center gap-6">
-                <figure className="relative h-12 w-20">
-                  <Image
-                    src={"/images/logo.png"}
-                    alt="Logo GIZMO"
-                    fill
-                    className="brightness-0 invert filter object-contain object-center"
-                  />
-                </figure>
+            <div className="flex flex-col gap-4">
+              <figure className="relative h-20 w-32 gap-6">
+                <Image
+                  src={"/images/logo.png"}
+                  alt="Logo GIZMO"
+                  fill
+                  className="object-contain object-center brightness-0 invert filter"
+                />
               </figure>
-              <div className="flex flex-col gap-1 text-primary-foreground">
-                <h4 className="text-lg font-bold">2P8J+2VQ</h4>
+              <div className="text-primary-foreground flex flex-col gap-1">
+                <h4 className="text-lg font-bold">+62 7111 710 600</h4>
+                <h4 className="text-lg font-bold">info@tarunagroup.co.id</h4>
                 <p className="text-lg leading-relaxed tracking-wide lg:w-[60%]">
-                  Jl. Dwikora II No.1220, Demang Lebar Daun, Kec. Ilir Bar. I,
-                  Kota Palembang, Sumatera Selatan 30137
+                  Jl. R. E Martadinata No. 2091 Sungai Buah, Ilir Timur II,
+                  Palembang, Sumatera Selatan
                 </p>
               </div>
             </div>
 
             <div className="flex w-full flex-col gap-8 tracking-wide max-lg:justify-between md:flex-row lg:gap-14 xl:gap-28">
               <div className="flex flex-col gap-2 md:gap-6">
-                <h4 className="w-fit border-b-4 border-background text-lg font-bold text-primary-foreground lg:text-xl">
+                <h4 className="border-background text-primary-foreground w-fit border-b-4 text-lg font-bold lg:text-xl">
                   RESOURCES
                 </h4>
                 <ul className="flex flex-col gap-2 text-base text-slate-500 md:gap-4 md:text-lg">
@@ -103,7 +102,7 @@ export default function Footer() {
                 </ul>
               </div>
               <div className="flex flex-col gap-3 md:gap-6">
-                <h4 className="w-fit border-b-4 border-background text-lg font-bold text-primary-foreground lg:text-xl">
+                <h4 className="border-background text-primary-foreground w-fit border-b-4 text-lg font-bold lg:text-xl">
                   CATEGORY
                 </h4>
                 <ul className="flex flex-col gap-2 text-base text-slate-500 md:gap-4 md:text-lg">
@@ -120,7 +119,7 @@ export default function Footer() {
                 </ul>
               </div>
               <div className="flex flex-col gap-3 md:gap-6">
-                <h4 className="w-fit border-b-4 border-background text-lg font-bold text-primary-foreground lg:text-xl">
+                <h4 className="border-background text-primary-foreground w-fit border-b-4 text-lg font-bold lg:text-xl">
                   FOLLOW US
                 </h4>
                 <ul className="flex gap-2 text-base text-slate-500 md:gap-4 md:text-lg">
@@ -128,7 +127,7 @@ export default function Footer() {
                     <a
                       href={link.link}
                       key={link.link}
-                      className="text-3xl text-primary-foreground duration-200 hover:opacity-75"
+                      className="text-primary-foreground text-3xl duration-200 hover:opacity-75"
                     >
                       <link.Icon />
                     </a>
@@ -140,7 +139,7 @@ export default function Footer() {
         </div>
         <hr />
         <div className="flex w-full justify-center">
-          <small className="text-base font-medium text-primary-foreground">
+          <small className="text-primary-foreground text-base font-medium">
             &copy; Copyright 2025 TAM. All rights reserved.
           </small>
         </div>

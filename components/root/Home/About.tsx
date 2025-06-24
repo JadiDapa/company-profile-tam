@@ -18,9 +18,10 @@ export default function About() {
           Innovation Shape The Future
         </h2>
         <p className="text-muted-foreground mx-auto max-w-2xl text-sm lg:text-base">
-          Achieve seamless technology and advanced networks with IT solutions
-          tailored for modern infrastructure. Each solution supports growth,
-          control, and long-term reliability.
+          We believe in the values of commitment in our work to build close
+          relationships with our customers. That is why all of our customers are
+          our friends—now and in the future. Through this, we live, grow, and
+          thrive.
         </p>
         <div className="flex items-center gap-4">
           <Button className="flex h-10 w-36 items-center rounded-full px-6 py-2">
