@@ -50,7 +50,7 @@ export default function Sidebar() {
     <>
       <aside
         className={cn(
-          "box-shadow bg-primary fixed z-50 min-h-screen w-[280px] space-y-3 overflow-hidden px-4 py-7 shadow-sm transition-all duration-500",
+          "box-shadow bg-primary fixed z-50 min-h-screen w-[280px] space-y-3 overflow-hidden px-4 py-4 shadow-sm transition-all duration-500",
           isSidebarOpen ? "translate-x-0" : "max-lg:-translate-x-full",
         )}
       >

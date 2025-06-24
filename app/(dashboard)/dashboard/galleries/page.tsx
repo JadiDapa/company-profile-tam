@@ -1,8 +1,6 @@
 "use client";
 
-import { Plus } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import Link from "next/link";
 import DataTable from "@/components/dashboard/DataTable";
 import { galleryColumn } from "@/lib/columns/gallery-column";
 import SearchDataTable from "@/components/dashboard/SearchDataTable";
@@ -19,7 +17,7 @@ export default function ActivitesPage() {
     return (
       <section className="flex w-full flex-col gap-4 py-6 lg:gap-6">
         {/* Header Title */}
-        <div className="flex w-full flex-col justify-between gap-4 lg:flex-row lg:gap-6">
+        <div className="flex w-full flex-col items-end justify-between gap-4 lg:flex-row lg:gap-6">
           <div className="">
             <h1 className="text-4xl font-medium">Gallery List</h1>
             <p className="hidden lg:inline">
@@ -27,11 +25,6 @@ export default function ActivitesPage() {
             </p>
           </div>
           <div className="flex items-center gap-4 lg:gap-6">
-            <Link href="/items/create">
-              <div className="bg-primary text-tertiary grid size-10 place-items-center gap-4 rounded-md text-lg shadow-sm">
-                <Plus size={24} />
-              </div>
-            </Link>
             <CreateGalleryModal />
           </div>
         </div>

@@ -18,42 +18,18 @@ export default function SearchDialog() {
     {
       name: "Dashboard",
       url: "/dashboard",
-      adminOnly: false,
     },
     {
-      name: "My Requests",
-      url: "/my-requests",
-      adminOnly: false,
+      name: "Acitivities",
+      url: "/dashboard/activities",
     },
     {
-      name: "All Requests",
-      url: "/requests",
-      adminOnly: true,
+      name: "Create Activity",
+      url: "/dashboard/activities/create",
     },
     {
-      name: "User List",
-      url: "/users",
-      adminOnly: true,
-    },
-    {
-      name: "All Entries",
-      url: "/entries",
-      adminOnly: true,
-    },
-    {
-      name: "All Consumes",
-      url: "/consumes",
-      adminOnly: true,
-    },
-    {
-      name: "Inventories",
-      url: "/inventories",
-      adminOnly: true,
-    },
-    {
-      name: "All Items",
-      url: "/items",
-      adminOnly: true,
+      name: "Galleries",
+      url: "/dashboard/activities",
     },
   ]);
 

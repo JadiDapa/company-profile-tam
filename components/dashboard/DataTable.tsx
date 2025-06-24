@@ -73,7 +73,7 @@ const DataTable: React.FC<DataTableProps<any, any>> = ({
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow className="hover:bg-primary/50" key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id}>
@@ -95,6 +95,7 @@ const DataTable: React.FC<DataTableProps<any, any>> = ({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
+                className="hover:bg-primary/5"
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>

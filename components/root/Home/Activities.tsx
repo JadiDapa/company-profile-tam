@@ -37,7 +37,10 @@ export default function Activities() {
       </div>
       <div className="grid w-full grid-cols-1 gap-12 lg:grid-cols-5">
         {/* Main Article */}
-        <div className="relative w-full overflow-hidden rounded-lg max-lg:hover:cursor-pointer lg:col-span-2">
+        <Link
+          href={`/activities/${activities[0].slug}`}
+          className="relative w-full overflow-hidden rounded-lg max-lg:hover:cursor-pointer lg:col-span-2"
+        >
           <div className="absolute inset-0 z-10 block bg-gradient-to-t from-black/60 to-transparent lg:hidden" />
 
           <div className="absolute bottom-0 left-0 z-20 p-2 lg:relative lg:block lg:p-0">
@@ -45,12 +48,9 @@ export default function Activities() {
               {activities[0].title}
             </h1>
             <div className="flex cursor-pointer items-center gap-2 lg:mb-4">
-              <Link
-                href="/olympics"
-                className="text-primary text-xs capitalize hover:underline lg:text-sm"
-              >
+              <div className="text-primary text-xs capitalize hover:underline lg:text-sm">
                 {activities[0].category}
-              </Link>
+              </div>
               <span className="text-secondary text-xs lg:text-sm">
                 {formatDate(activities[0].createdAt.toString())}
               </span>
@@ -65,13 +65,14 @@ export default function Activities() {
               priority
             />
           </div>
-        </div>
+        </Link>
 
         {/* Right Side Articles */}
         <div className="space-y-6 lg:col-span-3">
           {/* Article 1 */}
           {activities.slice(1, 3).map((activity) => (
-            <div
+            <Link
+              href={`/activities/${activity.slug}`}
               key={activity.id}
               className="relative flex w-full cursor-pointer flex-col gap-4 overflow-hidden rounded-lg border-b border-gray-200 pb-6 md:flex-row"
             >
@@ -85,12 +86,9 @@ export default function Activities() {
                   {activity.content}
                 </p>
                 <div className="flex items-center gap-2">
-                  <Link
-                    href="/olympics"
-                    className="text-primary text-sm capitalize hover:underline"
-                  >
+                  <div className="text-primary text-sm capitalize hover:underline">
                     {activity.category}
-                  </Link>
+                  </div>
                   <span className="text-secondary text-sm">
                     {formatDate(activity.createdAt.toString())}
                   </span>
@@ -104,7 +102,7 @@ export default function Activities() {
                   className="object-cover object-center"
                 />
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

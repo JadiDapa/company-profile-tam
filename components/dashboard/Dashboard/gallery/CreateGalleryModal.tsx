@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { PlusCircle, Upload, XCircle } from "lucide-react";
+import { Plus, Upload, XCircle } from "lucide-react";
 import { useState } from "react";
 import slugify from "slugify";
 import { toast } from "sonner";
@@ -82,10 +82,12 @@ export default function CreateGalleryModal() {
   return (
     <Dialog>
       <DialogTrigger>
-        <Button className="flex w-full items-center gap-3">
-          <PlusCircle size={20} />
-          Create New Gallery
-        </Button>
+        <div>
+          <div className="bg-primary text-tertiary flex items-center gap-4 rounded-md px-6 py-2 text-lg shadow-sm">
+            <p className="text-white">Add New Gallery</p>
+            <Plus className="text-white" size={24} />
+          </div>
+        </div>
       </DialogTrigger>
       <DialogContent className="">
         <DialogHeader>

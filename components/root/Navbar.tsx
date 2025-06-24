@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import MobileNav from "./MobileNav";
 import { Button } from "../ui/button";
 
@@ -35,6 +35,8 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
+  const router = useRouter();
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 1) {
@@ -58,7 +60,7 @@ const Navbar = () => {
       )}
     >
       <figure className="flex items-center gap-3">
-        <div className="relative h-6 w-12 lg:h-6 lg:w-14">
+        <div className="relative h-8 w-12 lg:h-10 lg:w-20">
           <Image
             src="/images/logo.png"
             alt="TAM Logo"
@@ -86,7 +88,12 @@ const Navbar = () => {
           </Link>
         ))}
       </div>
-      <Button className="hidden rounded-full px-9 lg:flex">Explore</Button>
+      <Button
+        onClick={() => router.push("/services")}
+        className="hidden rounded-full px-9 lg:flex"
+      >
+        Explore
+      </Button>
     </nav>
   );
 };

@@ -19,7 +19,7 @@ export const activityColumn: ColumnDef<ActivityType>[] = [
     accessorFn: (row) => row.image,
     header: ({ column }) => <TableSorter column={column} header="IMAGE" />,
     cell: ({ getValue }) => (
-      <div className="relative aspect-square h-24 w-32 overflow-hidden rounded-md">
+      <div className="relative aspect-square h-24 w-40 overflow-hidden rounded-md">
         <Image
           src={getValue() as string}
           className="object-cover object-center"
@@ -33,13 +33,19 @@ export const activityColumn: ColumnDef<ActivityType>[] = [
     accessorKey: "title",
     accessorFn: (row) => row.title,
     header: ({ column }) => <TableSorter column={column} header="TITLE" />,
-    cell: ({ getValue }) => <Link href={""}>{getValue() as string}</Link>,
+    cell: ({ getValue }) => (
+      <div className="capitalize">{getValue() as string}</div>
+    ),
   },
   {
     accessorKey: "category",
     accessorFn: (row) => row.category,
     header: ({ column }) => <TableSorter column={column} header="CATEGORY" />,
-    cell: ({ getValue }) => <Link href={""}>{getValue() as string}</Link>,
+    cell: ({ getValue }) => (
+      <div className="text-primary text-lg font-medium capitalize">
+        {getValue() as string}
+      </div>
+    ),
   },
 
   {
@@ -59,7 +65,10 @@ export const activityColumn: ColumnDef<ActivityType>[] = [
         >
           <Pencil />
         </Link>
-        <Link href={`${row.original.slug}`} className="text-primary size-5">
+        <Link
+          href={`/activity/${row.original.slug}`}
+          className="text-primary size-5"
+        >
           <Trash />
         </Link>
       </div>

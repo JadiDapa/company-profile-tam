@@ -5,6 +5,7 @@ import Image from "next/image";
 import { getAllActivities } from "@/lib/networks/activity";
 import { format } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 
 interface LatestActivityProps {
   image: string;
@@ -29,14 +30,14 @@ export default function LatestActivity({}: LatestActivityProps) {
       {/* Header */}
 
       {/* News Hero Section */}
-      <div className="relative z-10">
+      <div className="relative z-10 mb-4">
         <h2 className="text-primary text-4xl font-medium">Latest Activity</h2>
       </div>
 
       {/* News Content */}
 
       {/* Featured Post */}
-      <div className="mt-4">
+      <Link href={`/activities/${latestActivity.slug}`}>
         <div className="relative h-[500px] w-full overflow-hidden rounded-lg shadow-xl">
           <Image
             fill
@@ -52,7 +53,10 @@ export default function LatestActivity({}: LatestActivityProps) {
             <h3 className="mb-4 text-3xl text-slate-200 md:text-4xl">
               {latestActivity.title}
             </h3>
-            <p className="mb-6 text-gray-300">{latestActivity.content}</p>
+            <div
+              className="prose mb-6 line-clamp-2 text-gray-300"
+              dangerouslySetInnerHTML={{ __html: latestActivity.content }}
+            ></div>
             <div className="mb-6 flex items-center text-sm text-gray-300">
               <span className="mr-4 capitalize">{latestActivity.category}</span>
               <div className="flex items-center">
@@ -60,13 +64,16 @@ export default function LatestActivity({}: LatestActivityProps) {
                 <span>{format(latestActivity.createdAt, "dd MMM yyyy")}</span>
               </div>
             </div>
-            <button className="flex items-center text-white transition-colors hover:text-gray-300">
+            <Link
+              href={`/activities/${latestActivity.slug}`}
+              className="flex items-center text-white transition-colors hover:text-gray-300"
+            >
               <span className="mr-2 font-medium">Read More</span>
               <ArrowRight size={18} />
-            </button>
+            </Link>
           </div>
         </div>
-      </div>
+      </Link>
 
       {/* Recent Posts */}
     </div>

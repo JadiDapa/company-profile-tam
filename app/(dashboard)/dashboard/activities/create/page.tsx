@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createActivity } from "@/lib/networks/activity";
 import { CreateActivityType } from "@/lib/types/activity";
+import TiptapEditor from "@/components/dashboard/TipTapEditor";
 
 const formSchema = z.object({
   title: z.string().min(1),
@@ -95,7 +96,6 @@ export default function CreateActivity() {
               </p>
             </div>
             <div className="mt-6 flex justify-end gap-4 lg:mt-0 lg:justify-start">
-              <Button variant="secondary">Discard</Button>
               <Button variant="default" type="submit" className="gap-2">
                 <Plus />
                 Submit
@@ -118,20 +118,22 @@ export default function CreateActivity() {
                   </FormItem>
                 )}
               />
-
-              {/* <FormField
+              <FormField
                 control={form.control}
                 name="content"
                 render={({ field }) => (
-                  <FormItem className="h-72">
+                  <FormItem>
                     <FormLabel>Activity Content</FormLabel>
-                    <FormControl className="h-[216px]">
-                      <ReactQuill theme="snow" {...field} />
+                    <FormControl>
+                      <TiptapEditor
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
-              /> */}
+              />
             </div>
 
             <div className="space-y-6 lg:flex-[3]">
@@ -157,7 +159,7 @@ export default function CreateActivity() {
                   </div>
                 ) : (
                   <div className="relative flex h-52 w-full flex-col items-center justify-center rounded-md border-[3px] border-dashed">
-                    <div className="bg-muted text-muted-foreground flex size-12 items-center justify-center rounded-md">
+                    <div className="bg-primary text-primary-foreground flex size-12 items-center justify-center rounded-md">
                       <Upload size={28} strokeWidth={1.75} />
                     </div>
                     <div className="mt-8 flex flex-col items-center gap-2 text-center">

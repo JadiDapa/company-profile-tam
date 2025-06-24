@@ -19,7 +19,7 @@ export const galleryColumn: ColumnDef<GalleryType>[] = [
     accessorFn: (row) => row.image,
     header: ({ column }) => <TableSorter column={column} header="IMAGE" />,
     cell: ({ getValue }) => (
-      <div className="relative aspect-square h-32 w-40 overflow-hidden rounded-sm">
+      <div className="relative aspect-square h-24 w-40 overflow-hidden rounded-sm">
         <Image
           src={getValue() as string}
           className="object-cover object-center"
@@ -33,7 +33,9 @@ export const galleryColumn: ColumnDef<GalleryType>[] = [
     accessorKey: "title",
     accessorFn: (row) => row.title,
     header: ({ column }) => <TableSorter column={column} header="TITLE" />,
-    cell: ({ getValue }) => <Link href={""}>{getValue() as string}</Link>,
+    cell: ({ getValue }) => (
+      <div className="text-lg capitalize">{getValue() as string}</div>
+    ),
   },
   {
     accessorKey: "function",

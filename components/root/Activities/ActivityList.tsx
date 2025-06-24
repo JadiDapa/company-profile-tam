@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import Image from "next/image";
 import SearchActivityBar from "./SearchActivityBar";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function ActivityList() {
   const [query, setQuery] = useState<string>("");
@@ -23,8 +24,8 @@ export default function ActivityList() {
     <section id="activity-list" className="bg-primary/5 px-28 py-12 pb-24">
       <SearchActivityBar setQuery={setQuery} />
       <div className="grid grid-cols-1 gap-12 pt-6 lg:grid-cols-3">
-        {filteredActivities?.map((activity) => (
-          <div key={activity.id}>
+        {filteredActivities?.slice(1).map((activity) => (
+          <Link href={`/activities/${activity.slug}`} key={activity.id}>
             <div className="relative h-64 w-full overflow-hidden rounded-lg shadow-md">
               <Image
                 src={activity.image as string}
@@ -42,7 +43,7 @@ export default function ActivityList() {
                 {format(activity.createdAt, "dd MMM yyyy")}
               </p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>
