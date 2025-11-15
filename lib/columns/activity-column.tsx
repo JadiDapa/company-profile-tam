@@ -3,7 +3,8 @@ import Link from "next/link";
 import TableSorter from "@/components/dashboard/TableSorter";
 import { ActivityType } from "../types/activity";
 import Image from "next/image";
-import { Eye, Pencil, Trash } from "lucide-react";
+import { Eye, Pencil } from "lucide-react";
+import DeleteActivityButton from "@/components/dashboard/DeleteActivityButton";
 
 export const activityColumn: ColumnDef<ActivityType>[] = [
   {
@@ -65,12 +66,7 @@ export const activityColumn: ColumnDef<ActivityType>[] = [
         >
           <Pencil />
         </Link>
-        <Link
-          href={`/activity/${row.original.slug}`}
-          className="text-primary size-5"
-        >
-          <Trash />
-        </Link>
+        <DeleteActivityButton slug={row.original.slug} />
       </div>
     ),
   },

@@ -37,35 +37,37 @@ export default function Activities() {
       </div>
       <div className="grid w-full grid-cols-1 gap-12 lg:grid-cols-5">
         {/* Main Article */}
-        <Link
-          href={`/activities/${activities[0].slug}`}
-          className="relative w-full overflow-hidden rounded-lg max-lg:hover:cursor-pointer lg:col-span-2"
-        >
-          <div className="absolute inset-0 z-10 block bg-gradient-to-t from-black/60 to-transparent lg:hidden" />
+        {activities[0] && (
+          <Link
+            href={`/activities/${activities[0].slug}`}
+            className="relative w-full overflow-hidden rounded-lg max-lg:hover:cursor-pointer lg:col-span-2"
+          >
+            <div className="absolute inset-0 z-10 block bg-gradient-to-t from-black/60 to-transparent lg:hidden" />
 
-          <div className="absolute bottom-0 left-0 z-20 p-2 lg:relative lg:block lg:p-0">
-            <h1 className="lg:text-foreground mb-2 line-clamp-2 cursor-pointer text-lg font-medium text-white transition hover:underline lg:text-3xl lg:font-semibold">
-              {activities[0].title}
-            </h1>
-            <div className="flex cursor-pointer items-center gap-2 lg:mb-4">
-              <div className="text-primary text-xs capitalize hover:underline lg:text-sm">
-                {activities[0].category}
+            <div className="absolute bottom-0 left-0 z-20 p-2 lg:relative lg:block lg:p-0">
+              <h1 className="lg:text-foreground mb-2 line-clamp-2 cursor-pointer text-lg font-medium text-white transition hover:underline lg:text-3xl lg:font-semibold">
+                {activities[0].title}
+              </h1>
+              <div className="flex cursor-pointer items-center gap-2 lg:mb-4">
+                <div className="text-primary text-xs capitalize hover:underline lg:text-sm">
+                  {activities[0].category}
+                </div>
+                <span className="text-secondary text-xs lg:text-sm">
+                  {formatDate(activities[0].createdAt.toString())}
+                </span>
               </div>
-              <span className="text-secondary text-xs lg:text-sm">
-                {formatDate(activities[0].createdAt.toString())}
-              </span>
             </div>
-          </div>
-          <div className="relative z-0 h-40 w-full cursor-pointer overflow-hidden rounded-lg md:h-80">
-            <Image
-              src={activities[0].image as string}
-              alt={activities[0].title}
-              fill
-              className="object-cover object-center"
-              priority
-            />
-          </div>
-        </Link>
+            <div className="relative z-0 h-40 w-full cursor-pointer overflow-hidden rounded-lg md:h-80">
+              <Image
+                src={activities[0].image as string}
+                alt={activities[0].title}
+                fill
+                className="object-cover object-center"
+                priority
+              />
+            </div>
+          </Link>
+        )}
 
         {/* Right Side Articles */}
         <div className="space-y-6 lg:col-span-3">

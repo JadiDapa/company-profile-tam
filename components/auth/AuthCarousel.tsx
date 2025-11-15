@@ -7,17 +7,16 @@ export default function AuthCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const images = [
-    "https://plus.unsplash.com/premium_photo-1682310144714-cb77b1e6d64a?q=80&w=2112&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1494797262163-102fae527c62?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1549633030-89d0743bad01?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://media.istockphoto.com/id/2221152411/id/foto/penjaga-pria-keamanan-bekerja-di-ruang-kontrol-dengan-monitor-cctv-untuk-perlindungan-pusat.jpg?s=612x612&w=0&k=20&c=WzTODbj4XV86Qpq5boDdO02rbW4FfI1PViua8PyPkRE=",
+    "https://media.istockphoto.com/id/2204624300/id/foto/kontrol-kualitas-kamera-ip-inspeksi-audit-produsen.jpg?s=612x612&w=0&k=20&c=zlUoiuq0doB5tJ5_ghCphfpa3VX3bLrOhfvTujjKXAM=",
+    "https://media.istockphoto.com/id/2163457443/id/foto/perencanaan-konsep-konstruksi-dan-struktur-pertemuan-insinyur-atau-arsitek-untuk-proyek.jpg?s=612x612&w=0&k=20&c=H5Kw3845L9xihZ6PqJIhnC_3N2NxHLKxJFrbIzpMv4s=",
   ];
 
   const texts = [
-    "Capture What You’re Thinking",
-    "Open Your Mind Endlessly",
-    "Show Emotions You Never Knew",
+    "Transform Ideas Into Scalable Solutions",
+    "Innovate Without Limits, Build Without Boundaries",
+    "Create Experiences That Inspire and Connect",
   ];
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -70,11 +69,11 @@ export default function AuthCarousel() {
         </div>
 
         {/* Text Carousel */}
-        <div className="absolute bottom-32 left-[28%] text-center">
+        <div className="absolute bottom-32 left-32 text-center">
           {texts.map((text, index) => (
             <p
               key={index}
-              className={`absolute w-80 text-3xl text-slate-100 transition-all duration-1000 ${
+              className={`absolute w-120 text-3xl text-slate-100 transition-all duration-1000 ${
                 index === currentIndex ? "opacity-100" : "opacity-0"
               }`}
             >

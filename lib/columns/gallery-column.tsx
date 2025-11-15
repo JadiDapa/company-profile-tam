@@ -3,7 +3,8 @@ import Link from "next/link";
 import TableSorter from "@/components/dashboard/TableSorter";
 import Image from "next/image";
 import { GalleryType } from "../types/gallery";
-import { Eye, Pencil, Trash } from "lucide-react";
+import { Eye, Pencil } from "lucide-react";
+import DeleteGalleryButton from "@/components/dashboard/DeleteGalleryButton";
 
 export const galleryColumn: ColumnDef<GalleryType>[] = [
   {
@@ -54,9 +55,7 @@ export const galleryColumn: ColumnDef<GalleryType>[] = [
         >
           <Pencil />
         </Link>
-        <Link href={`${row.original.slug}`} className="text-primary size-5">
-          <Trash />
-        </Link>
+        <DeleteGalleryButton slug={row.original.slug} />
       </div>
     ),
   },

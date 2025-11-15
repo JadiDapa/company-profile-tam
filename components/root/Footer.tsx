@@ -27,16 +27,20 @@ const resourcesLinks = [
 
 const categoryLink = [
   {
-    label: "Headphone",
-    link: "/",
+    label: "IT Consultant",
+    link: "#",
   },
   {
-    label: "Speaker",
-    link: "/product",
+    label: "Integrator",
+    link: "#",
   },
   {
-    label: "Earbuds",
-    link: "/categories",
+    label: "Maintenance",
+    link: "#",
+  },
+  {
+    label: "Trading & Supplier",
+    link: "#",
   },
 ];
 

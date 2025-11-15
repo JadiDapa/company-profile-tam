@@ -41,9 +41,7 @@ export default function Hero() {
         <div className="relative mx-auto mt-24 h-[200px] w-[320px] overflow-hidden rounded-lg rounded-b-none bg-blue-200 p-4 pb-0 lg:mt-12 lg:h-[400px] lg:w-[800px]">
           <div className="relative h-full w-full overflow-hidden rounded-md rounded-b-none">
             <Image
-              src={
-                "https://images.unsplash.com/photo-1621905251918-48416bd8575a?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              }
+              src={"/images/hero-1.jpg"}
               alt="Illustration"
               fill
               className="object-cover object-top"
