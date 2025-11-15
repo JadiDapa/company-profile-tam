@@ -17,28 +17,32 @@ const services = [
     name: "IT Consultant",
     description:
       "IT consulting services include IT governance, information security management systems, IT infrastructure design, training services, IT master planning, and more.",
-    image: "https://picsum.photos/1000/2000",
+    image:
+      "https://images.unsplash.com/photo-1742112125635-6f8201c6ee3f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     icon: Network,
   },
   {
     name: "Integrator",
     description:
       "Installation, Configuration, and Integration Services for Information and Telecommunication Technology Infrastructure.",
-    image: "https://picsum.photos/900/2000",
+    image:
+      "https://images.unsplash.com/photo-1676630656246-3047520adfdf?q=80&w=1158&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     icon: Share2,
   },
   {
     name: "Maintenance",
     description:
       "Regular and Routine IT Equipment Maintenance Services to minimize the risk of damage and address any existing IT equipment issues.",
-    image: "https://picsum.photos/800/2000",
+    image:
+      "https://images.unsplash.com/photo-1748027869634-fc2e545cfb0c?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     icon: ShieldCheck,
   },
   {
     name: "Trading & Supplier",
     description:
       "IT Equipment Trading & Supply Services with competitive prices and high quality.",
-    image: "https://picsum.photos/700/2000",
+    image:
+      "https://images.unsplash.com/photo-1683821791876-9d2ad0c90bf6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     icon: PackageSearch,
   },
 ];

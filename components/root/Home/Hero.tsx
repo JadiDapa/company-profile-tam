@@ -41,27 +41,33 @@ export default function Hero() {
         <div className="relative mx-auto mt-24 h-[200px] w-[320px] overflow-hidden rounded-lg rounded-b-none bg-blue-200 p-4 pb-0 lg:mt-12 lg:h-[400px] lg:w-[800px]">
           <div className="relative h-full w-full overflow-hidden rounded-md rounded-b-none">
             <Image
-              src={"/images/illust-4.jpg"}
+              src={
+                "https://images.unsplash.com/photo-1621905251918-48416bd8575a?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              }
               alt="Illustration"
               fill
-              className="object-cover object-center"
+              className="object-cover object-top"
             />
           </div>
         </div>
         <div className="absolute bottom-6 left-20 hidden h-[240px] w-[240px] overflow-hidden rounded-lg bg-yellow-200 p-2 lg:block">
           <div className="relative h-full w-full overflow-hidden rounded-md">
             <Image
-              src={"/images/illust-3.jpg"}
+              src={
+                "https://images.unsplash.com/photo-1530240852689-f7a9c6d9f6c7?q=80&w=685&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              }
               alt="Illustration"
               fill
-              className="object-cover object-center"
+              className="object-cover object-top"
             />
           </div>
         </div>
         <div className="absolute top-12 right-32 hidden h-[120px] w-[200px] overflow-hidden rounded-lg bg-red-300 p-1.5 lg:block">
           <div className="relative h-full w-full overflow-hidden rounded-md">
             <Image
-              src={"/images/illust-3.jpg"}
+              src={
+                "https://images.unsplash.com/photo-1589935447067-5531094415d1?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              }
               alt="Illustration"
               fill
               className="object-cover object-center"
