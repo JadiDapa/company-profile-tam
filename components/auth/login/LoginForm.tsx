@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
-import { signIn } from "next-auth/react";
+import { useSignIn } from "@clerk/nextjs";
 import { toast } from "sonner";
 import { ClipLoader } from "react-spinners";
 
@@ -27,6 +27,8 @@ const registerSchema = z.object({
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+
+  const { signIn, setActive, isLoaded } = useSignIn();
 
   const router = useRouter();
 
@@ -40,26 +42,28 @@ export default function LoginForm() {
 
   async function onSubmit(values: z.infer<typeof registerSchema>) {
     const { username, password } = values;
+    if (!isLoaded) return;
+
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-      const response = await signIn("credentials", {
-        username,
-        password,
-        redirect: false,
-      });
-      if (response?.error) {
-        toast.error("Invalid Email or Password!");
-      } else {
-        toast.success("Login Successful!");
+      const result = await signIn.create({ identifier: username, password });
+
+      if (result.status === "complete" && result.createdSessionId) {
+        await setActive({ session: result.createdSessionId });
+        toast.success("Berhasil Masuk!");
+
         router.push("/dashboard");
+      } else {
+        toast.error("Kombinasi Username dan Password Salah!");
       }
     } catch (error) {
-      console.log(error);
-      toast.error("TSomething Went Wrong!");
+      console.error("Login error:", error);
+      toast.error("Kombinasi Username dan Password Salah!");
     } finally {
       setIsLoading(false);
     }
   }
+
   return (
     <Form {...form}>
       <form

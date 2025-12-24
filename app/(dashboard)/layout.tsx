@@ -1,19 +1,20 @@
-// app/dashboard/layout.tsx
-import { auth } from "@/auth";
+"use client";
+
 import { redirect } from "next/navigation";
 import Navbar from "@/components/dashboard/Navbar";
 import Sidebar from "@/components/dashboard/Sidebar";
 import React, { ReactNode } from "react";
+import { useUser } from "@clerk/nextjs";
 
 type Props = {
   children: ReactNode;
 };
 
-export default async function RootLayout({ children }: Props) {
-  const session = await auth();
+export default function RootLayout({ children }: Props) {
+  const { user } = useUser();
 
-  if (!session) {
-    redirect("/login");
+  if (!user) {
+    return redirect("/login");
   }
 
   return (

@@ -1,6 +1,5 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -54,10 +53,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={cn(
-        "fixed top-0 left-0 z-50 flex w-full items-center justify-between px-4 py-5 transition lg:px-24",
-        { "bg-stone-50 shadow-sm": isScrolled },
-      )}
+      className={`fixed lg:px-24 ${isScrolled && "bg-stone-50 shadow-sm"} top-0 left-0 z-999 flex w-full items-center justify-between px-4 py-5 transition`}
     >
       <figure className="flex items-center gap-3">
         <div className="relative h-8 w-12 lg:h-10 lg:w-20">
@@ -78,7 +74,7 @@ const Navbar = () => {
           <Link
             key={link.name}
             href={link.route}
-            className={`hover:border-primary border-b-2 border-transparent text-lg transition ${
+            className={`hover:border-primary cursor-pointer border-b-2 border-transparent text-lg transition ${
               pathname === link.route
                 ? "text-primary font-semibold"
                 : "text-muted-foreground"
