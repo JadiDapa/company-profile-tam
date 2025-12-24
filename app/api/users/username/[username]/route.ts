@@ -9,7 +9,7 @@ export async function GET(
     const { username } = await params;
     const result = await prisma.user.findFirst({
       where: {
-        name: username,
+        username: username,
       },
     });
     return NextResponse.json(result, { status: 200 });
