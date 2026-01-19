@@ -42,4 +42,8 @@ next-env.d.ts
 .qodo
 
 /dev.db
+/generated
+
+/generated/prisma
+/package-lock.json
 /generated/prisma

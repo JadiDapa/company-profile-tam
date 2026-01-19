@@ -14,37 +14,19 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Plus, Upload, XCircle } from "lucide-react";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import slugify from "slugify";
 import { toast } from "sonner";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createActivity } from "@/lib/networks/activity";
-import { CreateActivityType } from "@/lib/types/activity";
 import TiptapEditor from "@/components/dashboard/TipTapEditor";
-
-const formSchema = z.object({
-  title: z.string().min(1),
-  content: z.string().min(1),
-});
+import { createActivity } from "@/app/actions/activity.action";
+import { Spinner } from "@/components/ui/spinner";
+import { CreateActivitySchema } from "@/lib/validators/activity.validator";
 
 export default function CreateActivity() {
   const [picture, setPicture] = useState<File>();
   const [pictureUrl, setPictureUrl] = useState<string>();
-  const router = useRouter();
-
-  const queryClient = useQueryClient();
-
-  const { mutate: onCreateActivity, isPending } = useMutation({
-    mutationFn: (values: CreateActivityType) => createActivity(values),
-    onSuccess: () => {
-      toast.success("Data berhasil dibuat!");
-      queryClient.invalidateQueries({ queryKey: ["activities"] });
-      router.push("/dashboard/activities");
-    },
-    onError: (error) => console.log(error),
-  });
+  const [isPending, startTransition] = useTransition();
 
   function handlePicture(e: React.ChangeEvent<HTMLInputElement>) {
     const picture = e.target.files?.[0];
@@ -57,25 +39,46 @@ export default function CreateActivity() {
     setPictureUrl(undefined);
   }
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof CreateActivitySchema>>({
+    resolver: zodResolver(CreateActivitySchema),
     defaultValues: {
       title: "",
-      content: "bal bal bal",
+      content: "",
+      slug: "",
+      category: "ALL",
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof CreateActivitySchema>) {
     if (!picture) {
-      toast.error("Foto Peserta harus diinput");
+      toast.error("Foto harus diinput");
       return;
     }
 
-    onCreateActivity({
-      image: picture as File,
-      category: "all",
-      slug: slugify(values.title, { lower: true }),
-      ...values,
+    const formData = new FormData();
+    formData.append("title", values.title);
+    formData.append("content", values.content);
+    formData.append("image", picture);
+
+    startTransition(async () => {
+      try {
+        const title = formData.get("title") as string;
+        const content = formData.get("content") as string;
+        const image = formData.get("image") as File;
+
+        await createActivity({
+          activity: {
+            title: title,
+            content: content,
+            slug: slugify(title, { lower: true }),
+            category: "ALL",
+          },
+          image,
+        });
+        toast.success("Activity created!");
+      } catch {
+        toast.error("Something went wrong");
+      }
     });
   }
 
@@ -186,10 +189,10 @@ export default function CreateActivity() {
               </div>
               <div className="box-shadow flex w-full flex-col items-center justify-between gap-3 rounded-md bg-white p-6">
                 <Button
-                  disabled={isPending}
+                  disabled={isPending || !form.formState.isValid}
                   className="flex w-full items-center gap-3"
                 >
-                  Submit
+                  {isPending ? <Spinner /> : "Tambahkan"}
                 </Button>
                 <div className="text-center">
                   <div className="text-primary lg:text-lg">

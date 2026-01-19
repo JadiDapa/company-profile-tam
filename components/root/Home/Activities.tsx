@@ -1,20 +1,12 @@
-"use client";
-
-import { getAllActivities } from "@/lib/networks/activity";
+import { getAllActivities } from "@/app/actions/activity.action";
 import { formatDate } from "@/lib/utils/format-date";
-import { useQuery } from "@tanstack/react-query";
 import { Stars } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Activities() {
-  const { data: activities } = useQuery({
-    queryFn: getAllActivities,
-    queryKey: ["activities"],
-  });
-
+export default async function Activities() {
+  const activities = await getAllActivities();
   if (!activities) return null;
-
   return (
     <section
       id="reports"
@@ -59,7 +51,7 @@ export default function Activities() {
             </div>
             <div className="relative z-0 h-40 w-full cursor-pointer overflow-hidden rounded-lg md:h-80">
               <Image
-                src={activities[0].image as string}
+                src={activities[0].image?.url as string}
                 alt={activities[0].title}
                 fill
                 className="object-cover object-center"
@@ -98,7 +90,7 @@ export default function Activities() {
               </div>
               <div className="relative z-0 h-40 w-full shrink-0 overflow-hidden rounded-lg md:w-40 lg:h-28">
                 <Image
-                  src={activity.image as string}
+                  src={activity.image?.url as string}
                   alt="Breaking competition at the Olympics"
                   fill
                   className="object-cover object-center"

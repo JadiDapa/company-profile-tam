@@ -1,18 +1,10 @@
-"use client";
-
 import { Plus } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import DataTable from "@/components/dashboard/DataTable";
-import { activityColumn } from "@/lib/columns/activity-column";
-import SearchDataTable from "@/components/dashboard/SearchDataTable";
-import { getAllActivities } from "@/lib/networks/activity";
+import { getAllActivities } from "@/app/actions/activity.action";
+import ActivityTable from "@/components/dashboard/activities/ActivityTable";
 
-export default function DashboardActivityPage() {
-  const { data: activities } = useQuery({
-    queryFn: getAllActivities,
-    queryKey: ["activities"],
-  });
+export default async function DashboardActivityPage() {
+  const activities = await getAllActivities();
 
   if (activities) {
     return (
@@ -35,19 +27,7 @@ export default function DashboardActivityPage() {
           </div>
         </div>
 
-        <DataTable
-          columns={activityColumn}
-          data={activities}
-          filters={(table) => (
-            <div className="grid gap-4 p-4 lg:grid-cols-4 lg:gap-6">
-              <SearchDataTable
-                table={table}
-                column="title"
-                placeholder="Search Activity Title..."
-              />
-            </div>
-          )}
-        />
+        <ActivityTable activities={activities} />
       </section>
     );
   }

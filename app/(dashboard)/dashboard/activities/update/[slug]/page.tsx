@@ -14,59 +14,69 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Plus, Upload, XCircle } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import slugify from "slugify";
 import { toast } from "sonner";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getActivityBySlug, updateActivity } from "@/lib/networks/activity";
-import { CreateActivityType } from "@/lib/types/activity";
+import TiptapEditor from "@/components/dashboard/TipTapEditor";
+import { Spinner } from "@/components/ui/spinner";
+import {
+  getActivityBySlug,
+  updateActivity,
+} from "@/app/actions/activity.action";
+import { ActivityType } from "@/lib/validators/activity.validator";
 
 const formSchema = z.object({
-  title: z.string().min(1),
-  content: z.string().min(1),
+  title: z.string().min(1, "Title is required"),
+  content: z.string().min(1, "Content is required"),
 });
 
 export default function UpdateActivity() {
-  const [picture, setPicture] = useState<File>();
+  const [activity, setActivity] = useState<ActivityType | null>(null);
+  const [picture, setPicture] = useState<File | undefined>();
   const [pictureUrl, setPictureUrl] = useState<string>();
-  const params = useParams();
+  const [isPending, startTransition] = useTransition();
 
+  const { slug } = useParams();
   const router = useRouter();
 
-  const queryClient = useQueryClient();
-
-  const { data: activity } = useQuery({
-    queryFn: () => getActivityBySlug(params.slug as string),
-    queryKey: ["activities", params.slug],
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
   });
 
+  // Fetch activity
   useEffect(() => {
-    if (activity?.image) {
-      setPictureUrl(activity.image as string);
-      setPicture(activity.image as File);
+    async function fetchActivity() {
+      if (!slug) return;
+      try {
+        const data = await getActivityBySlug(slug as string);
+        if (!data) return;
+        setActivity(data);
+
+        // Set form values
+        form.reset({ title: data.title, content: data.content });
+
+        // Handle existing image
+        if (data.image) {
+          setPictureUrl(data.image.url);
+          const res = await fetch(data.image.url);
+          const blob = await res.blob();
+          setPicture(new File([blob], "image.jpg", { type: blob.type }));
+        }
+      } catch (err) {
+        toast.error("Failed to load activity");
+      }
     }
-  }, [activity]);
+    fetchActivity();
+  }, [slug, form]);
 
-  const { mutate: onUpdateActivity, isPending } = useMutation({
-    mutationFn: (values: CreateActivityType) =>
-      updateActivity(params.slug as string, values),
-    onSuccess: () => {
-      toast.success("Activities Successfully Modified!");
-      queryClient.invalidateQueries({ queryKey: ["activities", params.slug] });
-      router.push("/dashboard/activities");
-    },
-    onError: (error) => {
-      console.log(error);
-      toast.error("Update Failed! Something Went Wrong");
-    },
-  });
-
+  // Picture handlers
   function handlePicture(e: React.ChangeEvent<HTMLInputElement>) {
-    const picture = e.target.files?.[0];
-    setPicture(picture);
-    setPictureUrl(URL.createObjectURL(picture!));
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setPicture(file);
+    setPictureUrl(URL.createObjectURL(file));
   }
 
   function removePicture() {
@@ -74,25 +84,29 @@ export default function UpdateActivity() {
     setPictureUrl(undefined);
   }
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    values: {
-      title: activity?.title || "",
-      content: activity?.content || "",
-    },
-  });
-
+  // Form submit
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (!picture) {
-      toast.error("Activity Image Shoul Be Uploaded!");
+      toast.error("Foto harus diinput");
       return;
     }
 
-    onUpdateActivity({
-      image: picture as File,
-      category: "all",
-      slug: slugify(values.title, { lower: true }),
-      ...values,
+    startTransition(async () => {
+      try {
+        await updateActivity(activity?.id as number, {
+          activity: {
+            title: values.title,
+            content: values.content,
+            slug: slugify(values.title, { lower: true }),
+            category: "all",
+          },
+          image: picture,
+        });
+        toast.success("Activity updated!");
+        router.push("/dashboard/activities"); // Redirect after update
+      } catch {
+        toast.error("Something went wrong");
+      }
     });
   }
 
@@ -104,25 +118,34 @@ export default function UpdateActivity() {
           className="flex flex-col gap-6"
         >
           <header className="items-center justify-between lg:flex">
-            <div className="">
+            <div>
               <h1 className="text-primary text-2xl font-medium">
-                Update New Activity
+                Update Activity
               </h1>
               <p className="mt-1 text-gray-400">
                 Update an existing activity for displaying to our clients
               </p>
             </div>
             <div className="mt-6 flex justify-end gap-4 lg:mt-0 lg:justify-start">
-              <Button variant="secondary">Discard</Button>
+              <Button
+                variant="secondary"
+                type="button"
+                onClick={() => router.back()}
+              >
+                Discard
+              </Button>
               <Button variant="default" type="submit" className="gap-2">
                 <Plus />
                 Submit
               </Button>
             </div>
           </header>
+
           <div className="flex flex-col flex-wrap gap-6 lg:flex-row">
+            {/* Details */}
             <div className="box-shadow flex w-full flex-col gap-6 rounded-md bg-white p-6 lg:flex-[4]">
               <h2 className="text-xl font-medium">Activity Details</h2>
+
               <FormField
                 control={form.control}
                 name="title"
@@ -137,27 +160,32 @@ export default function UpdateActivity() {
                 )}
               />
 
-              {/* <FormField
+              <FormField
                 control={form.control}
                 name="content"
                 render={({ field }) => (
-                  <FormItem className="h-72">
+                  <FormItem>
                     <FormLabel>Activity Content</FormLabel>
-                    <FormControl className="h-[216px]">
-                      <ReactQuill theme="snow" {...field} />
+                    <FormControl>
+                      <TiptapEditor
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
-              /> */}
+              />
             </div>
 
+            {/* Picture */}
             <div className="space-y-6 lg:flex-[3]">
               <div className="box-shadow flex flex-col gap-6 rounded-md bg-white p-6">
                 <h2 className="text-xl font-medium">Activity Picture</h2>
+
                 {pictureUrl ? (
                   <div className="relative flex h-60 w-full flex-col rounded-md border-[3px] border-dashed">
-                    <div className="relative h-5/6 w-full items-center justify-center p-1">
+                    <div className="relative h-5/6 w-full p-1">
                       <Image
                         src={pictureUrl}
                         className="border-2 border-double object-contain object-center p-1"
@@ -202,12 +230,13 @@ export default function UpdateActivity() {
                   </div>
                 )}
               </div>
+
               <div className="box-shadow flex w-full flex-col items-center justify-between gap-3 rounded-md bg-white p-6">
                 <Button
-                  disabled={isPending}
-                  className="flex w-full items-center gap-3"
+                  type="submit"
+                  disabled={isPending || !form.formState.isValid}
                 >
-                  Submit
+                  {isPending ? <Spinner /> : "Update Activity"}
                 </Button>
                 <div className="text-center">
                   <div className="text-primary lg:text-lg">

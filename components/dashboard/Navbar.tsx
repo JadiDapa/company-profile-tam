@@ -1,27 +1,52 @@
-"use client";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Mail, Bell, Search } from "lucide-react";
+import Image from "next/image";
+import { User } from "@/generated/prisma";
 
-import { LogOut, Menu } from "lucide-react";
-import SearchDialog from "./SearchDialog";
-import useSidebarStore from "@/stores/SidebarStore";
-import { signOut } from "next-auth/react";
-
-export default function Navbar() {
-  const { openSidebar } = useSidebarStore();
-
+export default async function Navbar({ user }: { user: User }) {
   return (
-    <div className="flex w-full flex-row items-center justify-between gap-4 bg-white p-3 shadow-sm lg:gap-6 lg:py-4">
-      <div className="flex items-center gap-6">
-        <Menu
-          strokeWidth={1.5}
-          size={28}
-          onClick={openSidebar}
-          className="lg:hidden"
+    <header className="border-border hidden w-full items-center justify-between rounded-2xl border bg-white px-6 py-3 md:flex">
+      {/* Search */}
+      <div className="bg-card flex w-87 items-center gap-3 rounded-full border px-4 py-2">
+        <Search />
+
+        <Input
+          type="text"
+          placeholder="Search task"
+          className="border-none bg-transparent p-0 text-sm shadow-none focus-visible:ring-0"
         />
-        <SearchDialog />
+
+        <Badge className="rounded-md bg-gray-200 px-2 py-1 text-gray-600">
+          ⌘ F
+        </Badge>
       </div>
-      <div className="flex items-center gap-6">
-        <LogOut onClick={() => signOut()} strokeWidth={1.8} size={24} />
+
+      {/* Icons + User */}
+      <div className="flex items-center gap-3">
+        <div className="bg-card rounded-full border p-2">
+          <Mail className="size-5 text-gray-600" />
+        </div>
+        <div className="bg-card rounded-full border p-2">
+          <Bell className="size-5 text-gray-600" />
+        </div>
+
+        {/* Profile */}
+        <div className="flex items-center gap-2">
+          <Image
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4YreOWfDX3kK-QLAbAL4ufCPc84ol2MA8Xg&s" // replace with actual avatar
+            width={38}
+            height={38}
+            alt="avatar"
+            className="rounded-full border"
+          />
+
+          <div className="flex min-w-24 flex-col leading-tight">
+            <span className="font-medium">{user?.fullName || "User"}</span>
+            <span className="text-sm text-gray-500">{user?.role}</span>
+          </div>
+        </div>
       </div>
-    </div>
+    </header>
   );
 }

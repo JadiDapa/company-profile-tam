@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import Navbar from "@/components/root/Navbar";
 import Footer from "@/components/root/Footer";
 import { ReactNode } from "react";

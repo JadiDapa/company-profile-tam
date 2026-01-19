@@ -1,37 +1,33 @@
 "use client";
 
 import { Trash } from "lucide-react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { startTransition } from "react";
 import { toast } from "sonner";
-import { deleteGallery } from "@/lib/networks/gallery";
+import { deleteGallery } from "@/app/actions/gallery.action";
 
-export default function DeleteGalleryButton({ slug }: { slug: string }) {
-  const queryClient = useQueryClient();
+export default function DeleteGalleryButton({
+  galleryId,
+}: {
+  galleryId: number;
+}) {
+  function handleDelete() {
+    const ok = confirm("Are you sure you want to delete this?");
+    if (!ok) return;
 
-  const mutation = useMutation({
-    mutationFn: () => deleteGallery(slug),
-    onSuccess: () => {
-      toast.success("Gallery deleted");
-      queryClient.invalidateQueries({ queryKey: ["galleries"] });
-    },
-    onError: () => {
-      toast.error("Failed to delete gallery");
-    },
-  });
+    startTransition(async () => {
+      try {
+        await deleteGallery(galleryId);
 
-  const handleDelete = () => {
-    const confirmDelete = confirm("Are you sure you want to delete this?");
-    if (!confirmDelete) return;
-
-    mutation.mutate();
-  };
+        toast.success("Gallery deleted!");
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to delete gallery");
+      }
+    });
+  }
 
   return (
-    <button
-      onClick={handleDelete}
-      disabled={mutation.isPending}
-      className="text-red-500 hover:text-red-600"
-    >
+    <button onClick={handleDelete} className="text-red-500 hover:text-red-600">
       <Trash className="size-5" />
     </button>
   );

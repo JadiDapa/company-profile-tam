@@ -1,10 +1,9 @@
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import TableSorter from "@/components/dashboard/TableSorter";
-import { ActivityType } from "../types/activity";
 import Image from "next/image";
-import { Eye, Pencil } from "lucide-react";
-import DeleteActivityButton from "@/components/dashboard/DeleteActivityButton";
+import { Eye, Pencil, Trash } from "lucide-react";
+import { ActivityType } from "../validators/activity.validator";
 
 export const activityColumn: ColumnDef<ActivityType>[] = [
   {
@@ -19,12 +18,12 @@ export const activityColumn: ColumnDef<ActivityType>[] = [
     accessorKey: "image",
     accessorFn: (row) => row.image,
     header: ({ column }) => <TableSorter column={column} header="IMAGE" />,
-    cell: ({ getValue }) => (
-      <div className="relative aspect-square h-24 w-40 overflow-hidden rounded-md">
+    cell: ({ row }) => (
+      <div className="relative aspect-square h-24 w-32 overflow-hidden rounded-md">
         <Image
-          src={getValue() as string}
+          src={row.original.image?.url as string}
           className="object-cover object-center"
-          alt={(getValue() as string) + " Image"}
+          alt={(row.original.image?.filename as string) + " Image"}
           fill
         />
       </div>
@@ -34,19 +33,13 @@ export const activityColumn: ColumnDef<ActivityType>[] = [
     accessorKey: "title",
     accessorFn: (row) => row.title,
     header: ({ column }) => <TableSorter column={column} header="TITLE" />,
-    cell: ({ getValue }) => (
-      <div className="capitalize">{getValue() as string}</div>
-    ),
+    cell: ({ getValue }) => <Link href={""}>{getValue() as string}</Link>,
   },
   {
     accessorKey: "category",
     accessorFn: (row) => row.category,
     header: ({ column }) => <TableSorter column={column} header="CATEGORY" />,
-    cell: ({ getValue }) => (
-      <div className="text-primary text-lg font-medium capitalize">
-        {getValue() as string}
-      </div>
-    ),
+    cell: ({ getValue }) => <Link href={""}>{getValue() as string}</Link>,
   },
 
   {
@@ -66,7 +59,9 @@ export const activityColumn: ColumnDef<ActivityType>[] = [
         >
           <Pencil />
         </Link>
-        <DeleteActivityButton slug={row.original.slug} />
+        <Link href={`${row.original.slug}`} className="text-primary size-5">
+          <Trash />
+        </Link>
       </div>
     ),
   },

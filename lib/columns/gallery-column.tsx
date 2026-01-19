@@ -2,9 +2,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import TableSorter from "@/components/dashboard/TableSorter";
 import Image from "next/image";
-import { GalleryType } from "../types/gallery";
-import { Eye, Pencil } from "lucide-react";
-import DeleteGalleryButton from "@/components/dashboard/DeleteGalleryButton";
+import { Eye, Pencil, Trash } from "lucide-react";
+import { GalleryType } from "../validators/gallery.validator";
 
 export const galleryColumn: ColumnDef<GalleryType>[] = [
   {
@@ -19,12 +18,13 @@ export const galleryColumn: ColumnDef<GalleryType>[] = [
     accessorKey: "image",
     accessorFn: (row) => row.image,
     header: ({ column }) => <TableSorter column={column} header="IMAGE" />,
-    cell: ({ getValue }) => (
-      <div className="relative aspect-square h-24 w-40 overflow-hidden rounded-sm">
+    cell: ({ row }) => (
+      <div className="relative aspect-square h-32 w-40 overflow-hidden rounded-sm">
         <Image
-          src={getValue() as string}
+          unoptimized
+          src={row.original.image?.url as string}
           className="object-cover object-center"
-          alt={(getValue() as string) + " Image"}
+          alt={row.original.image?.filename as string}
           fill
         />
       </div>
@@ -34,9 +34,7 @@ export const galleryColumn: ColumnDef<GalleryType>[] = [
     accessorKey: "title",
     accessorFn: (row) => row.title,
     header: ({ column }) => <TableSorter column={column} header="TITLE" />,
-    cell: ({ getValue }) => (
-      <div className="text-lg capitalize">{getValue() as string}</div>
-    ),
+    cell: ({ getValue }) => <Link href={""}>{getValue() as string}</Link>,
   },
   {
     accessorKey: "function",
@@ -55,7 +53,9 @@ export const galleryColumn: ColumnDef<GalleryType>[] = [
         >
           <Pencil />
         </Link>
-        <DeleteGalleryButton slug={row.original.slug} />
+        <Link href={`${row.original.slug}`} className="text-primary size-5">
+          <Trash />
+        </Link>
       </div>
     ),
   },

@@ -52,13 +52,13 @@ export default function LoginForm() {
         await setActive({ session: result.createdSessionId });
         toast.success("Berhasil Masuk!");
 
-        router.push("/dashboard");
+        router.push("/");
       } else {
-        toast.error("Kombinasi Username dan Password Salah!");
+        toast.error("Kombinasi Email dan Password Salah!");
       }
     } catch (error) {
       console.error("Login error:", error);
-      toast.error("Kombinasi Username dan Password Salah!");
+      toast.error("Kombinasi Email dan Password Salah!");
     } finally {
       setIsLoading(false);
     }

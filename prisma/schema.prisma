@@ -4,35 +4,71 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
+}
+
+enum UserRole {
+  ADMIN
+  TECHNICIAN
+  USER
+}
+
+model Media {
+  id          Int        @id @default(autoincrement())
+  entityId    Int
+  url         String
+  filename    String?
+  mimeType    String?
+  size        Int?
+  type        String?
+  mediaTable  MediaTable
+  mediaType   MediaType?
+  description String?
+  createdAt   DateTime   @default(now())
+
+  @@index([mediaTable, entityId])
+  @@index([mediaType])
+}
+
+enum MediaTable {
+  ACTIVITY
+  GALLERY
+  TICKET
+}
+
+enum MediaType {
+  IMAGE
+  SUBMISSION
+  EVIDENCE
+  OTHER
 }
 
 model User {
-  id        String   @id @unique @default(cuid())
-  username  String   @unique
-  role      String   @default("employee")
+  id       Int      @id @default(autoincrement())
+  role     UserRole
+  username String   @unique
+  fullName String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("users")
+  @@index([role])
 }
 
 model Activity {
-  id        String   @id @unique @default(cuid())
+  id        Int      @id @default(autoincrement())
   title     String
   category  String
   content   String
   slug      String   @unique
-  image     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Gallery {
-  id        String   @id @unique @default(cuid())
+  id        Int      @id @default(autoincrement())
   title     String
   slug      String   @unique
-  image     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

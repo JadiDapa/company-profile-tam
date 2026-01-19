@@ -1,8 +1,5 @@
-"use client";
-
 import { IoMdTime } from "react-icons/io";
 import { CiCalendar } from "react-icons/ci";
-import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import Image from "next/image";
@@ -14,22 +11,21 @@ import {
 } from "react-icons/ri";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils/format-date";
-import { getActivityBySlug, getAllActivities } from "@/lib/networks/activity";
-import { useParams } from "next/navigation";
+import {
+  getActivityBySlug,
+  getAllActivities,
+} from "@/app/actions/activity.action";
 
-export default function NewsDetail() {
-  const { slug } = useParams();
+export default async function NewsDetail({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
 
-  const { data: anotherNews } = useQuery({
-    queryFn: () => getAllActivities(),
-    queryKey: ["news"],
-  });
+  const otherNews = await getAllActivities();
 
-  const { data: news } = useQuery({
-    queryFn: () => getActivityBySlug(slug as string),
-    queryKey: ["news", slug],
-    enabled: !!slug,
-  });
+  const news = await getActivityBySlug(slug as string);
 
   if (news) {
     const validTime = format(
@@ -70,7 +66,7 @@ export default function NewsDetail() {
 
           <figure className="relative aspect-video w-full">
             <Image
-              src={news.image!.toString()}
+              src={news.image?.url as string}
               alt={news.title}
               className="object-cover object-center"
               fill
@@ -117,9 +113,9 @@ export default function NewsDetail() {
             Berita lainnya
           </h3>
           <div className="mt-6 flex cursor-pointer flex-col divide-y">
-            {anotherNews &&
-              Array.isArray(anotherNews) &&
-              anotherNews
+            {otherNews &&
+              Array.isArray(otherNews) &&
+              otherNews
                 .filter((news) => news.slug !== slug)
                 .slice(0, 10)
                 .map((item, index) => (

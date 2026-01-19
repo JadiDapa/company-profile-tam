@@ -1,30 +1,14 @@
-"use client";
-
 import { Clock, ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { getAllActivities } from "@/lib/networks/activity";
 import { format } from "date-fns";
-import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { ActivityType } from "@/lib/validators/activity.validator";
 
-interface LatestActivityProps {
-  image: string;
-  title: string;
-  content: string;
-  date: string;
-  category: string;
-}
-
-export default function LatestActivity({}: LatestActivityProps) {
-  const { data: activities } = useQuery({
-    queryFn: getAllActivities,
-    queryKey: ["activities"],
-  });
-
-  const latestActivity = activities?.[0];
-
-  if (!latestActivity) return null;
-
+export default async function LatestActivity({
+  latestActivity,
+}: {
+  latestActivity: ActivityType;
+}) {
   return (
     <div className="text-primary bg-primary/5 relative px-4 pt-24 pb-4 lg:px-28">
       {/* Header */}
@@ -41,7 +25,7 @@ export default function LatestActivity({}: LatestActivityProps) {
         <div className="relative h-[500px] w-full overflow-hidden rounded-lg shadow-xl">
           <Image
             fill
-            src={latestActivity.image as string}
+            src={latestActivity.image?.url as string}
             alt={latestActivity.title}
             className="object-cover object-center"
           />

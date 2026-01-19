@@ -1,37 +1,33 @@
 "use client";
 
 import { Trash } from "lucide-react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { startTransition } from "react";
 import { toast } from "sonner";
-import { deleteActivity } from "@/lib/networks/activity";
+import { deleteActivity } from "@/app/actions/activity.action";
 
-export default function DeleteActivityButton({ slug }: { slug: string }) {
-  const queryClient = useQueryClient();
+export default function DeleteActivityButton({
+  activityId,
+}: {
+  activityId: number;
+}) {
+  function handleDelete() {
+    const ok = confirm("Are you sure you want to delete this?");
+    if (!ok) return;
 
-  const mutation = useMutation({
-    mutationFn: () => deleteActivity(slug),
-    onSuccess: () => {
-      toast.success("Activity deleted");
-      queryClient.invalidateQueries({ queryKey: ["activities"] });
-    },
-    onError: () => {
-      toast.error("Failed to delete activity");
-    },
-  });
+    startTransition(async () => {
+      try {
+        await deleteActivity(activityId);
 
-  const handleDelete = () => {
-    const confirmDelete = confirm("Are you sure you want to delete this?");
-    if (!confirmDelete) return;
-
-    mutation.mutate();
-  };
+        toast.success("Activity deleted!");
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to delete activity");
+      }
+    });
+  }
 
   return (
-    <button
-      onClick={handleDelete}
-      disabled={mutation.isPending}
-      className="text-red-500 hover:text-red-600"
-    >
+    <button onClick={handleDelete} className="text-red-500 hover:text-red-600">
       <Trash className="size-5" />
     </button>
   );
