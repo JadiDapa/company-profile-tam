@@ -18,7 +18,7 @@ export default async function ActivitesPage() {
           <CreateGalleryModal />
         </div>
       </div>
-      <GalleryTable galleries={galleries} />
+      {galleries.length > 0 && <GalleryTable galleries={galleries} />}
     </section>
   );
 }

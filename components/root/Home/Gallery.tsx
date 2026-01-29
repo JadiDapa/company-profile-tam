@@ -6,7 +6,7 @@ import { getAllGalleries } from "@/app/actions/gallery.action";
 export default async function Gallery() {
   const galleries = await getAllGalleries();
 
-  if (!galleries) return null;
+  if (galleries.length === 0) return null;
 
   return (
     <section id="services" className="relative w-full py-24">

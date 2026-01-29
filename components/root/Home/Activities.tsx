@@ -6,7 +6,9 @@ import Link from "next/link";
 
 export default async function Activities() {
   const activities = await getAllActivities();
-  if (!activities) return null;
+
+  if (activities.length === 0) return null;
+
   return (
     <section
       id="reports"
