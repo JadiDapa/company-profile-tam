@@ -49,6 +49,7 @@ export default function Partners() {
                 src={partner.logo}
                 alt={partner.name}
                 fill
+                sizes="128px"
                 className="object-contain object-center grayscale-100 transition hover:grayscale-0"
               />
             </div>

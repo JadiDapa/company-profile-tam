@@ -17,7 +17,7 @@ export default async function Activities() {
         <div className="flex max-w-fit items-stretch gap-0.5">
           <div className="bg-primary w-1 shrink-0 -skew-x-12" />
           <div className="text-primary border-primary -skew-x-12 border-2 bg-transparent px-4 py-0.5">
-            <h3 className="skew-x-12 font-medium">Activities</h3>
+            <p className="skew-x-12 font-medium">Activities</p>
           </div>
         </div>
         <h2 className="text-3xl font-medium lg:text-5xl">
@@ -40,9 +40,9 @@ export default async function Activities() {
             <div className="absolute inset-0 z-10 block bg-gradient-to-t from-black/60 to-transparent lg:hidden" />
 
             <div className="absolute bottom-0 left-0 z-20 p-2 lg:relative lg:block lg:p-0">
-              <h1 className="lg:text-foreground mb-2 line-clamp-2 cursor-pointer text-lg font-medium text-white transition hover:underline lg:text-3xl lg:font-semibold">
+              <h2 className="lg:text-foreground mb-2 line-clamp-2 cursor-pointer text-lg font-medium text-white transition hover:underline lg:text-3xl lg:font-semibold">
                 {activities[0].title}
-              </h1>
+              </h2>
               <div className="text-white/80 lg:text-muted-foreground flex cursor-pointer items-center gap-1.5 text-xs lg:mb-4 lg:text-sm">
                 <span className="font-medium tracking-wide uppercase">
                   {activities[0].category}
@@ -59,7 +59,7 @@ export default async function Activities() {
                 alt={activities[0].title}
                 fill
                 className="object-cover object-center"
-                priority
+                sizes="(max-width: 1024px) 100vw, 40vw"
               />
             </div>
           </Link>
@@ -97,9 +97,10 @@ export default async function Activities() {
               <div className="relative z-0 h-40 w-full shrink-0 overflow-hidden rounded-lg md:w-40 lg:h-28">
                 <Image
                   src={activity.image?.url ?? "/images/image-placeholder.svg"}
-                  alt="Breaking competition at the Olympics"
+                  alt={activity.title}
                   fill
                   className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 160px"
                 />
               </div>
             </Link>

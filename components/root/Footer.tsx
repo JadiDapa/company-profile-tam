@@ -46,14 +46,17 @@ const categoryLink = [
 
 const socialMediaLinks = [
   {
+    label: "Instagram",
     link: "/",
     Icon: RiInstagramFill,
   },
   {
+    label: "Facebook",
     link: "/product",
     Icon: RiFacebookFill,
   },
   {
+    label: "Twitter",
     link: "/categories",
     Icon: RiTwitterFill,
   },
@@ -128,13 +131,15 @@ export default function Footer() {
                 </h4>
                 <ul className="flex gap-2 text-base text-slate-500 md:gap-4 md:text-lg">
                   {socialMediaLinks.map((link) => (
-                    <a
-                      href={link.link}
-                      key={link.link}
-                      className="text-primary-foreground text-3xl duration-200 hover:opacity-75"
-                    >
-                      <link.Icon />
-                    </a>
+                    <li key={link.label}>
+                      <a
+                        href={link.link}
+                        aria-label={link.label}
+                        className="text-primary-foreground flex size-11 items-center justify-center text-3xl duration-200 hover:opacity-75"
+                      >
+                        <link.Icon />
+                      </a>
+                    </li>
                   ))}
                 </ul>
               </div>

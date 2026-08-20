@@ -63,7 +63,7 @@ export default function Features() {
         <div className="flex max-w-fit items-stretch gap-0.5">
           <div className="bg-primary w-1 shrink-0 -skew-x-12" />
           <div className="text-primary border-primary -skew-x-12 border-2 bg-transparent px-4 py-0.5">
-            <h3 className="skew-x-12 font-medium">Mission</h3>
+            <p className="skew-x-12 font-medium">Mission</p>
           </div>
         </div>
         <h2 className="text-3xl font-medium lg:text-5xl">
@@ -83,7 +83,9 @@ export default function Features() {
 
         <div className="flex items-center gap-4">
           <Button className="flex h-10 w-36 items-center rounded-full px-6 py-2">
-            <Link href="/about">Read More</Link>
+            <Link href="/about">
+              Read More<span className="sr-only"> about our mission and innovation</span>
+            </Link>
             <ChevronRight className="size-5" />
           </Button>
         </div>

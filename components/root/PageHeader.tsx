@@ -27,10 +27,10 @@ export default function PageHeader({
           <div className="flex max-w-fit items-stretch gap-0.5">
             <div className="bg-primary w-1 shrink-0 -skew-x-12" />
             <div className="text-primary border-primary -skew-x-12 border-2 bg-transparent px-4 py-0.5">
-              <h3 className="skew-x-12 font-medium">{page}</h3>
+              <p className="skew-x-12 font-medium">{page}</p>
             </div>
           </div>
-          <h2 className="text-center">
+          <h1 className="text-center">
             <span className="text-2xl font-medium lg:text-start lg:text-4xl/relaxed">
               {title}
             </span>
@@ -38,7 +38,7 @@ export default function PageHeader({
             <span className="text-4xl font-medium lg:text-start lg:text-7xl">
               <span className="text-primary">{accent}</span>
             </span>
-          </h2>
+          </h1>
         </div>
         <p className="max-w-2xl text-center text-sm text-slate-700 lg:text-base">
           {subtitle}

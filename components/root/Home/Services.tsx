@@ -41,7 +41,7 @@ export default function Services() {
         <div className="flex max-w-fit items-stretch gap-0.5">
           <div className="bg-primary w-1 shrink-0 -skew-x-12" />
           <div className="text-primary border-primary -skew-x-12 border-2 bg-transparent px-4 py-0.5">
-            <h3 className="skew-x-12 font-medium">Services</h3>
+            <p className="skew-x-12 font-medium">Services</p>
           </div>
         </div>
         <h2 className="max-w-xs text-3xl font-medium lg:max-w-none lg:text-5xl">
@@ -73,6 +73,7 @@ export default function Services() {
                 src={service.image || "/placeholder.svg"}
                 alt={service.name}
                 fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 32vw, 17vw"
                 className="rounded-lg object-cover"
               />
               <div className="bg-primary/40 absolute h-full w-full rounded-lg" />

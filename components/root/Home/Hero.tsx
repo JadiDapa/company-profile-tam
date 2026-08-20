@@ -33,7 +33,9 @@ export default function Hero() {
             <Link href="/about">Get Started</Link>
           </Button>
           <Button className="text-primary flex h-10 rounded-full border bg-transparent px-6 py-2">
-            <Link href="/about">Learn More</Link>
+            <Link href="/about">
+              Learn More<span className="sr-only"> about Taruna Anugrah Mandiri</span>
+            </Link>
           </Button>
         </div>
       </div>
@@ -45,6 +47,8 @@ export default function Hero() {
               alt="Illustration"
               fill
               className="object-cover object-top"
+              sizes="(max-width: 1024px) 320px, 800px"
+              priority
             />
           </div>
         </div>
@@ -57,6 +61,7 @@ export default function Hero() {
               alt="Illustration"
               fill
               className="object-cover object-top"
+              sizes="240px"
             />
           </div>
         </div>
@@ -69,6 +74,7 @@ export default function Hero() {
               alt="Illustration"
               fill
               className="object-cover object-center"
+              sizes="200px"
             />
           </div>
         </div>

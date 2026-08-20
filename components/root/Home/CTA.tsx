@@ -30,7 +30,7 @@ export default function CTA() {
             </Button>
             <Button className="text-primary hover:bg-primary flex h-10 w-36 items-center rounded-full border border-white bg-transparent px-6 py-2 hover:text-white">
               <Link href="/about" className="text-white">
-                Learn More
+                Learn More<span className="sr-only"> about our IT solutions</span>
               </Link>
               <ChevronRight className="size-4 text-white" />
             </Button>

@@ -39,15 +39,20 @@ export function MarqueeGallery({ data }: GalleryItemProps) {
           {repeatImages(data, 30).map((item, index) => (
             <Dialog key={index}>
               <DialogTrigger asChild>
-                <div className="relative mx-1 h-24 w-40 shrink-0 overflow-hidden rounded-sm lg:mx-2 lg:h-40 lg:w-72 lg:rounded-md">
+                <button
+                  type="button"
+                  aria-label={`View ${item.title}`}
+                  className="relative mx-1 h-24 w-40 shrink-0 overflow-hidden rounded-sm p-0 lg:mx-2 lg:h-40 lg:w-72 lg:rounded-md"
+                >
                   <Image
                     src={item.image?.url ?? "/images/image-placeholder.svg"}
                     alt={item.title}
                     fill
+                    sizes="(max-width: 1024px) 160px, 288px"
                     className="object-cover"
                     loading="lazy"
                   />
-                </div>
+                </button>
               </DialogTrigger>
               <DialogContent className="bg-background w-[600px] p-3">
                 <div className="relative h-80 w-full overflow-hidden rounded-md">
@@ -55,6 +60,7 @@ export function MarqueeGallery({ data }: GalleryItemProps) {
                     src={item.image?.url ?? "/images/image-placeholder.svg"}
                     alt={item.title}
                     fill
+                    sizes="600px"
                     className="object-cover"
                   />
                 </div>

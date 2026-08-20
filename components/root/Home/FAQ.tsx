@@ -41,7 +41,7 @@ export default function FAQ() {
         <div className="flex max-w-fit items-stretch gap-0.5">
           <div className="bg-primary w-1 shrink-0 -skew-x-12" />
           <div className="text-primary border-primary -skew-x-12 border-2 bg-transparent px-4 py-0.5">
-            <h3 className="skew-x-12 font-medium">FAQ</h3>
+            <p className="skew-x-12 font-medium">FAQ</p>
           </div>
         </div>
 

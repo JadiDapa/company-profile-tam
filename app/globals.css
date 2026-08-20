@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Oxanium&display=swap");
-
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -44,7 +42,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --font-oxanium: "Oxanium", sans-serif;
 }
 
 :root {

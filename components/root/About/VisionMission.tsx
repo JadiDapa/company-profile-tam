@@ -20,7 +20,7 @@ export default function VisionMission() {
           <div className="flex max-w-fit items-stretch gap-0.5">
             <div className="bg-primary w-1 shrink-0 -skew-x-12" />
             <div className="text-primary border-primary -skew-x-12 border-2 bg-transparent px-4 py-0.5">
-              <h3 className="skew-x-12 font-medium">Vision & Mission</h3>
+              <p className="skew-x-12 font-medium">Vision & Mission</p>
             </div>
           </div>
           <h2 className="max-w-xs text-3xl font-medium lg:max-w-none lg:text-5xl">
