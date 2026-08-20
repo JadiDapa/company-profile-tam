@@ -7,6 +7,7 @@ import Partners from "@/components/root/Home/Partners";
 import Activities from "@/components/root/Home/Activities";
 import Services from "@/components/root/Home/Services";
 import Gallery from "@/components/root/Home/Gallery";
+import FindUs from "@/components/root/About/FindUs";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <Features />
       <Activities />
       <Gallery />
+      <FindUs />
       <FAQ />
       <CTA />
     </>

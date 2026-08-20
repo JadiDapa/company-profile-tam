@@ -8,7 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { RiSearchLine as Search } from "react-icons/ri";
 import Link from "next/link";
 import { SetStateAction, useState } from "react";
 
@@ -29,7 +29,7 @@ export default function SearchDialog() {
     },
     {
       name: "Galleries",
-      url: "/dashboard/activities",
+      url: "/dashboard/galleries",
     },
   ]);
 

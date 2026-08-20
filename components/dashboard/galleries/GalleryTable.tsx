@@ -1,15 +1,22 @@
 "use client";
 
 import DataTable from "@/components/dashboard/DataTable";
+import ServerPagination from "@/components/dashboard/ServerPagination";
 import { galleryColumn } from "@/lib/columns/gallery-column";
 import SearchDataTable from "@/components/dashboard/SearchDataTable";
-import { Gallery } from "@/generated/prisma";
+import { GalleryType } from "@/lib/validators/gallery.validator";
 
 interface GalleryTableProps {
-  galleries: Gallery[];
+  galleries: GalleryType[];
+  page: number;
+  totalPages: number;
 }
 
-export default function GalleryTable({ galleries }: GalleryTableProps) {
+export default function GalleryTable({
+  galleries,
+  page,
+  totalPages,
+}: GalleryTableProps) {
   return (
     <DataTable
       columns={galleryColumn}
@@ -23,6 +30,13 @@ export default function GalleryTable({ galleries }: GalleryTableProps) {
           />
         </div>
       )}
+      pagination={
+        <ServerPagination
+          page={page}
+          totalPages={totalPages}
+          makeHref={(p) => `/dashboard/galleries?page=${p}`}
+        />
+      }
     />
   );
 }

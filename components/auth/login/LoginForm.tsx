@@ -8,7 +8,12 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Eye, EyeClosed, Lock, User } from "lucide-react";
+import {
+  RiEyeLine as Eye,
+  RiEyeOffLine as EyeClosed,
+  RiLockLine as Lock,
+  RiUserLine as User,
+} from "react-icons/ri";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

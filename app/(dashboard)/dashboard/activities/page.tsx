@@ -1,10 +1,20 @@
-import { Plus } from "lucide-react";
+import { RiAddLine as Plus } from "react-icons/ri";
 import Link from "next/link";
-import { getAllActivities } from "@/app/actions/activity.action";
+import { listActivities } from "@/app/actions/activity.action";
 import ActivityTable from "@/components/dashboard/activities/ActivityTable";
 
-export default async function DashboardActivityPage() {
-  const activities = await getAllActivities();
+export default async function DashboardActivityPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { page: pageParam } = await searchParams;
+  const page = Number(pageParam) || 1;
+
+  const { data: activities, totalPages } = await listActivities({
+    page,
+    pageSize: 10,
+  });
 
   return (
     <section className="flex w-full flex-col gap-4 py-6 lg:gap-6">
@@ -26,7 +36,13 @@ export default async function DashboardActivityPage() {
         </div>
       </div>
 
-      {activities.length > 0 && <ActivityTable activities={activities} />}
+      {activities.length > 0 && (
+        <ActivityTable
+          activities={activities}
+          page={page}
+          totalPages={totalPages}
+        />
+      )}
     </section>
   );
 }

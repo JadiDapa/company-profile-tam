@@ -1,5 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { CheckSquare2, ChevronRight, Stars } from "lucide-react";
+import {
+  RiCheckboxLine as CheckSquare2,
+  RiArrowRightSLine as ChevronRight,
+} from "react-icons/ri";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -24,12 +27,12 @@ export default function Features() {
   return (
     <section
       id="features"
-      className="bg-primary/5 relative flex w-full flex-col items-center justify-between gap-12 px-4 py-24 lg:flex-row lg:px-28"
+      className="bg-primary/5 relative flex w-full flex-col items-center justify-between gap-12 px-4 py-28 lg:flex-row lg:px-28"
     >
-      <div className="relative order-2 flex flex-1 scale-75 items-center justify-center gap-2 px-12 sm:scale-100 lg:order-1">
-        <div className="absolute -top-6 left-0 z-0 h-96 w-[440px] rounded-xl bg-white shadow-xl" />
-        <div className="relative z-10 flex flex-col gap-2">
-          <div className="relative z-10 h-40 w-52 overflow-hidden rounded-md">
+      <div className="relative order-2 flex w-full flex-1 items-center justify-center gap-1.5 px-6 sm:gap-2 sm:px-12 lg:order-1">
+        <div className="absolute -top-4 left-1/2 z-0 h-72 w-[85%] -translate-x-1/2 rounded-xl bg-white shadow-xl sm:left-0 sm:h-96 sm:w-[440px] sm:translate-x-0" />
+        <div className="relative z-10 flex flex-col gap-1.5 sm:gap-2">
+          <div className="relative z-10 h-28 w-36 overflow-hidden rounded-md sm:h-40 sm:w-52">
             <Image
               src={"/images/illust-1.jpg"}
               alt="Illustration"
@@ -37,7 +40,7 @@ export default function Features() {
               className="object-cover object-center"
             />
           </div>
-          <div className="relative z-10 h-40 w-52 overflow-hidden rounded-md">
+          <div className="relative z-10 h-28 w-36 overflow-hidden rounded-md sm:h-40 sm:w-52">
             <Image
               src={"/images/illust-2.jpeg"}
               alt="Illustration"
@@ -47,7 +50,7 @@ export default function Features() {
           </div>
         </div>
 
-        <div className="relative z-10 h-[324px] w-60 overflow-hidden rounded-md">
+        <div className="relative z-10 h-56 w-40 overflow-hidden rounded-md sm:h-[324px] sm:w-60">
           <Image
             src={"/images/illust-3.jpg"}
             alt="Illustration"
@@ -57,12 +60,15 @@ export default function Features() {
         </div>
       </div>
       <div className="order-1 flex-1 space-y-4 lg:order-2 lg:px-12">
-        <div className="text-primary border-primary flex max-w-fit items-center gap-2 rounded-full border-2 px-4 py-0.5">
-          <h3 className="font-medium">Mission</h3>
-          <Stars className="size-4" />
+        <div className="flex max-w-fit items-stretch gap-0.5">
+          <div className="bg-primary w-1 shrink-0 -skew-x-12" />
+          <div className="text-primary border-primary -skew-x-12 border-2 bg-transparent px-4 py-0.5">
+            <h3 className="skew-x-12 font-medium">Mission</h3>
+          </div>
         </div>
         <h2 className="text-3xl font-medium lg:text-5xl">
-          Innovation Shape The Future
+          Innovation Shape
+          <span className="text-primary"> The Future</span>
         </h2>
         <div className="">
           {features.map((feature) => (

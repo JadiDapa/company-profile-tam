@@ -1,6 +1,6 @@
 "use client";
 
-import { DialogClose, DialogHeader } from "@/components/ui/dialog";
+import { DialogHeader } from "@/components/ui/dialog";
 import {
   Dialog,
   DialogTrigger,
@@ -20,7 +20,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { PlusCircle, Upload, XCircle } from "lucide-react";
+import {
+  RiAddCircleLine as PlusCircle,
+  RiUploadLine as Upload,
+  RiCloseCircleLine as XCircle,
+} from "react-icons/ri";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import Image from "next/image";
@@ -32,6 +36,7 @@ const gallerySchema = z.object({
 });
 
 export default function CreateGalleryModal() {
+  const [open, setOpen] = useState(false);
   const [picture, setPicture] = useState<File>();
   const [pictureUrl, setPictureUrl] = useState<string>();
   const [isPending, startTransition] = useTransition();
@@ -81,14 +86,18 @@ export default function CreateGalleryModal() {
           file: image,
         });
         toast.success("Gallery created!");
+        form.reset();
+        removePicture();
+        setOpen(false);
       } catch (err) {
+        console.error(err);
         toast.error("Something went wrong");
       }
     });
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         <Button className="flex w-full items-center gap-3">
           <PlusCircle size={20} />
@@ -170,10 +179,11 @@ export default function CreateGalleryModal() {
               </div>
 
               <Button
+                type="submit"
                 disabled={isPending}
                 className="flex w-full items-center gap-3"
               >
-                <DialogClose className="w-full">Submit</DialogClose>
+                Submit
               </Button>
             </form>
           </Form>

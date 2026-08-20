@@ -1,4 +1,4 @@
-import { Search } from "lucide-react";
+import { RiSearchLine as Search } from "react-icons/ri";
 import { Input } from "../ui/input";
 import { Table } from "@tanstack/react-table";
 

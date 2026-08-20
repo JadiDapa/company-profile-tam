@@ -1,11 +1,11 @@
 import { Table } from "@tanstack/react-table";
 import { Button } from "../ui/button";
 import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-} from "lucide-react";
+  RiArrowLeftSLine as ChevronLeft,
+  RiArrowRightSLine as ChevronRight,
+  RiArrowLeftDoubleLine as ChevronsLeft,
+  RiArrowRightDoubleLine as ChevronsRight,
+} from "react-icons/ri";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type TData = any;

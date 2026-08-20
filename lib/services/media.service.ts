@@ -72,7 +72,7 @@ export const MediaService = {
       const media = await prisma.media.create({
         data: {
           entityId,
-          url: `/media/${mediaTable.toLowerCase()}/${saved.filename}`,
+          url: `/api/media/${mediaTable.toLowerCase()}/${saved.filename}`,
           filename: saved.filename,
           mimeType: saved.mimeType,
           size: saved.size,
@@ -86,6 +86,30 @@ export const MediaService = {
     }
 
     return results;
+  },
+
+  async deleteByEntity(entityId: number, mediaTable: MediaTable) {
+    const mediaList = await prisma.media.findMany({
+      where: { entityId, mediaTable },
+    });
+
+    for (const media of mediaList) {
+      const filePath = path.join(
+        BASE_DIR,
+        media.mediaTable.toLowerCase(),
+        media.filename as string,
+      );
+
+      try {
+        await fs.unlink(filePath);
+      } catch (err: unknown) {
+        if (err instanceof Error && "code" in err && err.code !== "ENOENT") {
+          throw err;
+        }
+      }
+    }
+
+    await prisma.media.deleteMany({ where: { entityId, mediaTable } });
   },
 
   async delete(mediaId: number) {
@@ -103,11 +127,6 @@ export const MediaService = {
       media.filename as string,
     );
 
-    await prisma.media.delete({
-      where: { id: mediaId },
-    });
-
-    // 🔹 Delete file (ignore if missing)
     try {
       await fs.unlink(filePath);
     } catch (err: unknown) {
@@ -115,5 +134,9 @@ export const MediaService = {
         throw err;
       }
     }
+
+    await prisma.media.delete({
+      where: { id: mediaId },
+    });
   },
 };

@@ -5,6 +5,16 @@ import sharp from "sharp";
 
 export const BASE_DIR = path.join(process.cwd(), "media");
 
+export const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+
+export const ALLOWED_MIME_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+  "application/pdf",
+];
+
 export async function ensureDir(dir: string) {
   await fs.mkdir(dir, { recursive: true });
 }
@@ -20,6 +30,16 @@ export async function saveFile({
   baseDir: string; // absolute
   file: File;
 }) {
+  if (!ALLOWED_MIME_TYPES.includes(file.type)) {
+    throw new Error(`File type not allowed: ${file.type}`);
+  }
+
+  if (file.size > MAX_FILE_SIZE) {
+    throw new Error(
+      `File too large: ${file.size} bytes (max ${MAX_FILE_SIZE} bytes)`,
+    );
+  }
+
   await ensureDir(baseDir);
 
   const isImg = isImage(file.type);

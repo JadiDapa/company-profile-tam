@@ -25,7 +25,7 @@ export const GalleryService = {
 
     const orderBy = options.orderBy ?? { createdAt: "desc" };
 
-    const [data, total] = await Promise.all([
+    const [galleries, total] = await Promise.all([
       prisma.gallery.findMany({
         where,
         take: pageSize,
@@ -34,6 +34,12 @@ export const GalleryService = {
       }),
       prisma.gallery.count({ where }),
     ]);
+
+    const galleriesWithMedia = await attachMedia(galleries, "GALLERY");
+    const data = galleriesWithMedia.map((g) => ({
+      ...g,
+      image: g.media.find((m) => m.mediaType === MediaType.IMAGE) ?? null,
+    }));
 
     return {
       data,
@@ -56,7 +62,7 @@ export const GalleryService = {
   },
 
   async getById(id: number): Promise<GalleryType | null> {
-    const gallery = await GalleryService.getById(id);
+    const gallery = await prisma.gallery.findUnique({ where: { id } });
     if (!gallery) return null;
 
     const [galleryWithMedia] = await attachMedia([gallery], "GALLERY");

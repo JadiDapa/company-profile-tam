@@ -1,10 +1,11 @@
 import {
-  Settings,
-  UserRoundCogIcon,
-  House,
-  NotebookPen,
-  Images,
-} from "lucide-react";
+  RiSettings3Line as Settings,
+  RiUserSettingsLine as UserRoundCogIcon,
+  RiHomeLine as House,
+  RiArticleLine as NotebookPen,
+  RiGalleryLine as Images,
+  RiUserLine as Users,
+} from "react-icons/ri";
 
 export const mainItems = [
   {
@@ -21,6 +22,11 @@ export const mainItems = [
     title: "Gallery",
     url: "/dashboard/galleries",
     icon: Images,
+  },
+  {
+    title: "Users",
+    url: "/dashboard/users",
+    icon: Users,
   },
 ];
 

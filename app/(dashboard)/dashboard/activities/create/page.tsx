@@ -13,7 +13,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Plus, Upload, XCircle } from "lucide-react";
+import {
+  RiAddLine as Plus,
+  RiUploadLine as Upload,
+  RiCloseCircleLine as XCircle,
+} from "react-icons/ri";
 import { useState, useTransition } from "react";
 import slugify from "slugify";
 import { toast } from "sonner";
@@ -45,7 +49,7 @@ export default function CreateActivity() {
       title: "",
       content: "",
       slug: "",
-      category: "ALL",
+      category: "",
     },
   });
 
@@ -58,12 +62,14 @@ export default function CreateActivity() {
     const formData = new FormData();
     formData.append("title", values.title);
     formData.append("content", values.content);
+    formData.append("category", values.category);
     formData.append("image", picture);
 
     startTransition(async () => {
       try {
         const title = formData.get("title") as string;
         const content = formData.get("content") as string;
+        const category = formData.get("category") as string;
         const image = formData.get("image") as File;
 
         await createActivity({
@@ -71,7 +77,7 @@ export default function CreateActivity() {
             title: title,
             content: content,
             slug: slugify(title, { lower: true }),
-            category: "ALL",
+            category,
           },
           image,
         });
@@ -116,6 +122,19 @@ export default function CreateActivity() {
                     <FormLabel>Activity Title</FormLabel>
                     <FormControl>
                       <Input placeholder="ex: Lift-Up Monitor" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Category</FormLabel>
+                    <FormControl>
+                      <Input placeholder="ex: Instalasi" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

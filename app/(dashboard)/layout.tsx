@@ -1,11 +1,16 @@
 export const revalidate = 0;
 
 import React, { ReactNode } from "react";
+import type { Metadata } from "next";
 import { getUser } from "../actions/user.actions";
 import { redirect } from "next/navigation";
 import Sidebar from "@/components/dashboard/Sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import Navbar from "@/components/dashboard/Navbar";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 type Props = {
   children: ReactNode;
@@ -14,7 +19,7 @@ export default async function RootLayout({ children }: Props) {
   const user = await getUser();
 
   if (!user) {
-    redirect("/sign-in");
+    redirect("/login");
   }
 
   return (

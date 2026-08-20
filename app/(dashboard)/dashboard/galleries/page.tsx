@@ -1,9 +1,19 @@
-import { getAllGalleries } from "@/app/actions/gallery.action";
+import { listGalleries } from "@/app/actions/gallery.action";
 import CreateGalleryModal from "@/components/dashboard/galleries/CreateGalleryModal";
 import GalleryTable from "@/components/dashboard/galleries/GalleryTable";
 
-export default async function ActivitesPage() {
-  const galleries = await getAllGalleries();
+export default async function ActivitesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { page: pageParam } = await searchParams;
+  const page = Number(pageParam) || 1;
+
+  const { data: galleries, totalPages } = await listGalleries({
+    page,
+    pageSize: 10,
+  });
   return (
     <section className="flex h-full w-full flex-col gap-4 rounded-md border p-6 lg:gap-6">
       {/* Header Title */}
@@ -18,7 +28,13 @@ export default async function ActivitesPage() {
           <CreateGalleryModal />
         </div>
       </div>
-      {galleries.length > 0 && <GalleryTable galleries={galleries} />}
+      {galleries.length > 0 && (
+        <GalleryTable
+          galleries={galleries}
+          page={page}
+          totalPages={totalPages}
+        />
+      )}
     </section>
   );
 }

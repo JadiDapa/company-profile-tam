@@ -13,12 +13,14 @@ export const UserRoleEnum = z.enum(["ADMIN", "TECHNICIAN", "USER"]);
 
 const UserBaseSchema = z.object({
   username: z.string().min(8).max(30).optional(),
-  password: z.string().min(4).optional(),
   fullName: z.string().min(1).optional(),
+  role: UserRoleEnum.optional(),
 });
 
 export const CreateUserSchema = UserBaseSchema.extend({
-  password: z.string().min(4, "Password minimal 8 karakter"),
+  username: z.string().min(8).max(30),
+  fullName: z.string().min(1),
+  role: UserRoleEnum,
 });
 
 export const UpdateUserSchema = UserBaseSchema.partial();

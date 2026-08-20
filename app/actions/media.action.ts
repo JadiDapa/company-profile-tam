@@ -3,6 +3,7 @@
 import { MediaTable, MediaType } from "@/generated/prisma";
 import { MediaService } from "@/lib/services/media.service";
 import { revalidatePath } from "next/cache";
+import { requireAuth } from "@/lib/requireAuth";
 
 // export async function getAllMedia() {
 //   return await MediaService.getAll();
@@ -27,6 +28,8 @@ export async function createMedia({
   description?: string;
   revalidate?: string;
 }) {
+  await requireAuth();
+
   if (!file) throw new Error("No file provided");
 
   const media = await MediaService.upload({
@@ -59,6 +62,8 @@ export async function createManyMedia({
   description?: string;
   revalidate?: string;
 }) {
+  await requireAuth();
+
   if (!files || files.length === 0) {
     throw new Error("No files provided");
   }
@@ -91,6 +96,8 @@ export async function deleteMedia({
   mediaId: number;
   revalidate?: string;
 }) {
+  await requireAuth();
+
   await MediaService.delete(mediaId);
 
   if (revalidate) {

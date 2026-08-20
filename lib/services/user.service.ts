@@ -65,13 +65,12 @@ export const UserService = {
     });
   },
 
-  // CREATE (clean, typed, no validation)
   async create(data: CreateUserDTO) {
     return await prisma.user.create({
       data: {
-        username: data.username as string,
-        role: UserRole.ADMIN,
-        fullName: data.fullName as string,
+        username: data.username,
+        role: data.role,
+        fullName: data.fullName,
       },
     });
   },

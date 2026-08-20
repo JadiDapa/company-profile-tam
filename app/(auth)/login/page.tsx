@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import LoginForm from "@/components/auth/login/LoginForm";
 import AuthCarousel from "@/components/auth/AuthCarousel";
 import AuthHeader from "@/components/auth/AuthHeader";
+
+export const metadata: Metadata = {
+  title: "Login",
+  robots: { index: false, follow: false },
+};
 
 export default function LoginPage() {
   return (

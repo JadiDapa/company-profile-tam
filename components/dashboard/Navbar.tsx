@@ -1,6 +1,10 @@
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Bell, Search } from "lucide-react";
+import {
+  RiMailLine as Mail,
+  RiNotification3Line as Bell,
+  RiSearchLine as Search,
+} from "react-icons/ri";
 import Image from "next/image";
 import { User } from "@/generated/prisma";
 

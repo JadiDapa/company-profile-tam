@@ -144,7 +144,8 @@ export default function Footer() {
         <hr />
         <div className="flex w-full justify-center">
           <small className="text-primary-foreground text-base font-medium">
-            &copy; Copyright 2025 TAM. All rights reserved.
+            &copy; Copyright {new Date().getFullYear()} TAM. All rights
+            reserved.
           </small>
         </div>
       </div>

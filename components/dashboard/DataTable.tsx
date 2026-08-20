@@ -30,6 +30,10 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   filters?: (table: TableType<TData>) => ReactNode;
   title?: string;
+  /** When provided, pagination is treated as server-driven: `data` is
+   * already the current page, and the default TablePagination is replaced
+   * with this node. */
+  pagination?: ReactNode;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -38,15 +42,17 @@ const DataTable: React.FC<DataTableProps<any, any>> = ({
   data,
   filters,
   title = "Data Filters",
+  pagination,
 }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const manualPagination = pagination !== undefined;
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    ...(manualPagination ? {} : { getPaginationRowModel: getPaginationRowModel() }),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
@@ -114,7 +120,7 @@ const DataTable: React.FC<DataTableProps<any, any>> = ({
         </TableBody>
       </Table>
 
-      <TablePagination table={table} />
+      {pagination ?? <TablePagination table={table} />}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { Trash } from "lucide-react";
+import { RiDeleteBinLine as Trash } from "react-icons/ri";
 import { startTransition } from "react";
 import { toast } from "sonner";
 import { deleteGallery } from "@/app/actions/gallery.action";

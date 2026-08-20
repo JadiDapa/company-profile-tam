@@ -1,8 +1,8 @@
-import { LucideIcon } from "lucide-react";
+import { IconType } from "react-icons";
 import Image from "next/image";
 
 interface StatisticCardProps {
-  Icon?: LucideIcon;
+  Icon?: IconType;
   title: string;
   value: number | string;
   image?: string | File;

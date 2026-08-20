@@ -1,4 +1,4 @@
-import { Bell } from "lucide-react";
+import { RiNotification3Line as Bell } from "react-icons/ri";
 import { Popover, PopoverTrigger } from "../ui/popover";
 
 export default function Notifications() {

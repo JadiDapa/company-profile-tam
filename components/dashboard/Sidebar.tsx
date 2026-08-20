@@ -19,7 +19,10 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { User } from "@/generated/prisma";
 import { settingsItems, mainItems } from "@/lib/sidebar-menu";
-import { PanelRightOpen, LogOut } from "lucide-react";
+import {
+  RiLayoutRightLine as PanelRightOpen,
+  RiLogoutBoxRLine as LogOut,
+} from "react-icons/ri";
 
 // Menu items.
 
@@ -31,7 +34,7 @@ export default function DashboardSidebar({ user }: { user: User }) {
 
   const handleSignOut = async () => {
     await signOut();
-    router.replace("/sign-in");
+    router.replace("/login");
   };
 
   return (

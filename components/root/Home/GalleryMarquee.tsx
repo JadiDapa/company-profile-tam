@@ -41,7 +41,7 @@ export function MarqueeGallery({ data }: GalleryItemProps) {
               <DialogTrigger asChild>
                 <div className="relative mx-1 h-24 w-40 shrink-0 overflow-hidden rounded-sm lg:mx-2 lg:h-40 lg:w-72 lg:rounded-md">
                   <Image
-                    src={item.image?.url as string}
+                    src={item.image?.url ?? "/images/image-placeholder.svg"}
                     alt={item.title}
                     fill
                     className="object-cover"
@@ -52,7 +52,7 @@ export function MarqueeGallery({ data }: GalleryItemProps) {
               <DialogContent className="bg-background w-[600px] p-3">
                 <div className="relative h-80 w-full overflow-hidden rounded-md">
                   <Image
-                    src={item.image?.url as string}
+                    src={item.image?.url ?? "/images/image-placeholder.svg"}
                     alt={item.title}
                     fill
                     className="object-cover"

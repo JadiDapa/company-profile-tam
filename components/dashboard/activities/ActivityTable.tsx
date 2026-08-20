@@ -1,18 +1,25 @@
 "use client";
 
 import DataTable from "@/components/dashboard/DataTable";
-import { galleryColumn } from "@/lib/columns/gallery-column";
+import ServerPagination from "@/components/dashboard/ServerPagination";
+import { activityColumn } from "@/lib/columns/activity-column";
 import SearchDataTable from "@/components/dashboard/SearchDataTable";
-import { Activity } from "@/generated/prisma";
+import { ActivityType } from "@/lib/validators/activity.validator";
 
 interface ActivityTableProps {
-  activities: Activity[];
+  activities: ActivityType[];
+  page: number;
+  totalPages: number;
 }
 
-export default function ActivityTable({ activities }: ActivityTableProps) {
+export default function ActivityTable({
+  activities,
+  page,
+  totalPages,
+}: ActivityTableProps) {
   return (
     <DataTable
-      columns={galleryColumn}
+      columns={activityColumn}
       data={activities}
       filters={(table) => (
         <div className="grid gap-4 p-4 lg:grid-cols-4 lg:gap-6">
@@ -23,6 +30,13 @@ export default function ActivityTable({ activities }: ActivityTableProps) {
           />
         </div>
       )}
+      pagination={
+        <ServerPagination
+          page={page}
+          totalPages={totalPages}
+          makeHref={(p) => `/dashboard/activities?page=${p}`}
+        />
+      }
     />
   );
 }

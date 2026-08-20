@@ -1,6 +1,9 @@
 "use server";
 
-import { GalleryService } from "@/lib/services/gallery.service";
+import {
+  GalleryService,
+  GalleryListOptions,
+} from "@/lib/services/gallery.service";
 import {
   CreateGallerySchema,
   UpdateGallerySchema,
@@ -9,9 +12,15 @@ import { revalidatePath } from "next/cache";
 import z from "zod";
 import { createMedia } from "./media.action";
 import { MediaTable, MediaType } from "@/generated/prisma";
+import { MediaService } from "@/lib/services/media.service";
+import { requireAuth } from "@/lib/requireAuth";
 
 export async function getAllGalleries() {
   return await GalleryService.getAll();
+}
+
+export async function listGalleries(options: GalleryListOptions = {}) {
+  return await GalleryService.list(options);
 }
 
 export async function getGalleryById(id: number) {
@@ -25,6 +34,8 @@ export async function createGallery({
   gallery: z.input<typeof CreateGallerySchema>;
   file: File;
 }) {
+  await requireAuth();
+
   const data = CreateGallerySchema.parse({ ...gallery });
 
   const created = await GalleryService.create(data);
@@ -44,6 +55,8 @@ export async function updateGallery(
   galleryId: number,
   input: z.input<typeof UpdateGallerySchema>,
 ) {
+  await requireAuth();
+
   const data = UpdateGallerySchema.parse(input);
 
   await GalleryService.update(galleryId, {
@@ -55,6 +68,9 @@ export async function updateGallery(
 }
 
 export async function deleteGallery(galleryId: number) {
+  await requireAuth();
+
+  await MediaService.deleteByEntity(galleryId, MediaTable.GALLERY);
   await GalleryService.delete(galleryId);
   revalidatePath("/galleries");
 }

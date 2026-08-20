@@ -25,7 +25,7 @@ export const ActivityService = {
 
     const orderBy = options.orderBy ?? { createdAt: "desc" };
 
-    const [data, total] = await Promise.all([
+    const [activities, total] = await Promise.all([
       prisma.activity.findMany({
         where,
         take: pageSize,
@@ -34,6 +34,12 @@ export const ActivityService = {
       }),
       prisma.activity.count({ where }),
     ]);
+
+    const activitiesWithMedia = await attachMedia(activities, "ACTIVITY");
+    const data = activitiesWithMedia.map((a) => ({
+      ...a,
+      image: a.media.find((m) => m.mediaType === MediaType.IMAGE) ?? null,
+    }));
 
     return {
       data,

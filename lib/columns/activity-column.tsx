@@ -2,8 +2,9 @@ import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import TableSorter from "@/components/dashboard/TableSorter";
 import Image from "next/image";
-import { Eye, Pencil, Trash } from "lucide-react";
+import { RiEyeLine as Eye, RiPencilLine as Pencil } from "react-icons/ri";
 import { ActivityType } from "../validators/activity.validator";
+import DeleteActivityButton from "@/components/dashboard/DeleteActivityButton";
 
 export const activityColumn: ColumnDef<ActivityType>[] = [
   {
@@ -21,7 +22,7 @@ export const activityColumn: ColumnDef<ActivityType>[] = [
     cell: ({ row }) => (
       <div className="relative aspect-square h-24 w-32 overflow-hidden rounded-md">
         <Image
-          src={row.original.image?.url as string}
+          src={row.original.image?.url ?? "/images/image-placeholder.svg"}
           className="object-cover object-center"
           alt={(row.original.image?.filename as string) + " Image"}
           fill
@@ -33,13 +34,17 @@ export const activityColumn: ColumnDef<ActivityType>[] = [
     accessorKey: "title",
     accessorFn: (row) => row.title,
     header: ({ column }) => <TableSorter column={column} header="TITLE" />,
-    cell: ({ getValue }) => <Link href={""}>{getValue() as string}</Link>,
+    cell: ({ row, getValue }) => (
+      <Link href={`/activities/${row.original.slug}`}>
+        {getValue() as string}
+      </Link>
+    ),
   },
   {
     accessorKey: "category",
     accessorFn: (row) => row.category,
     header: ({ column }) => <TableSorter column={column} header="CATEGORY" />,
-    cell: ({ getValue }) => <Link href={""}>{getValue() as string}</Link>,
+    cell: ({ getValue }) => <span>{getValue() as string}</span>,
   },
 
   {
@@ -59,9 +64,7 @@ export const activityColumn: ColumnDef<ActivityType>[] = [
         >
           <Pencil />
         </Link>
-        <Link href={`${row.original.slug}`} className="text-primary size-5">
-          <Trash />
-        </Link>
+        <DeleteActivityButton activityId={row.original.id} />
       </div>
     ),
   },

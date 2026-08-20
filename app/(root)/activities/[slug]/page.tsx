@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { IoMdTime } from "react-icons/io";
 import { CiCalendar } from "react-icons/ci";
 import { format } from "date-fns";
@@ -10,24 +11,71 @@ import {
   RiWhatsappLine,
 } from "react-icons/ri";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { formatDate } from "@/lib/utils/format-date";
 import {
   getActivityBySlug,
   getAllActivities,
 } from "@/app/actions/activity.action";
 
+function stripHtml(html: string, maxLength = 160) {
+  const text = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  return text.length > maxLength ? `${text.slice(0, maxLength - 1)}…` : text;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const news = await getActivityBySlug(slug);
+
+  if (!news) {
+    return {};
+  }
+
+  const description = stripHtml(news.content);
+  const image = news.image?.url ?? "/images/open-graph.png";
+
+  return {
+    title: news.title,
+    description,
+    alternates: { canonical: `/activities/${slug}` },
+    openGraph: {
+      title: news.title,
+      description,
+      url: `/activities/${slug}`,
+      type: "article",
+      publishedTime: news.createdAt?.toISOString(),
+      modifiedTime: news.updatedAt?.toISOString(),
+      images: [{ url: image }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: news.title,
+      description,
+      images: [image],
+    },
+  };
+}
+
 export default async function NewsDetail({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
 
   const otherNews = await getAllActivities();
 
-  const news = await getActivityBySlug(slug as string);
+  const news = await getActivityBySlug(slug);
 
-  if (news) {
+  if (!news) {
+    notFound();
+  }
+
+  {
     const validTime = format(
       new Date(news.createdAt || "2024-07-25T08:17:41.095Z") || new Date(),
       "HH:mm ",
@@ -66,7 +114,7 @@ export default async function NewsDetail({
 
           <figure className="relative aspect-video w-full">
             <Image
-              src={news.image?.url as string}
+              src={news.image?.url ?? "/images/image-placeholder.svg"}
               alt={news.title}
               className="object-cover object-center"
               fill

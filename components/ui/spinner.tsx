@@ -1,4 +1,4 @@
-import { Loader2Icon } from "lucide-react"
+import { RiLoader4Line as Loader2Icon } from "react-icons/ri"
 
 import { cn } from "@/lib/utils"
 

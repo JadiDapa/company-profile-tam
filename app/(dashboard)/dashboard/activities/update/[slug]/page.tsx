@@ -13,7 +13,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Plus, Upload, XCircle } from "lucide-react";
+import {
+  RiAddLine as Plus,
+  RiUploadLine as Upload,
+  RiCloseCircleLine as XCircle,
+} from "react-icons/ri";
 import { useEffect, useState, useTransition } from "react";
 import slugify from "slugify";
 import { toast } from "sonner";
@@ -30,6 +34,7 @@ import { ActivityType } from "@/lib/validators/activity.validator";
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
   content: z.string().min(1, "Content is required"),
+  category: z.string().min(1, "Category is required"),
 });
 
 export default function UpdateActivity() {
@@ -55,7 +60,11 @@ export default function UpdateActivity() {
         setActivity(data);
 
         // Set form values
-        form.reset({ title: data.title, content: data.content });
+        form.reset({
+          title: data.title,
+          content: data.content,
+          category: data.category,
+        });
 
         // Handle existing image
         if (data.image) {
@@ -98,7 +107,7 @@ export default function UpdateActivity() {
             title: values.title,
             content: values.content,
             slug: slugify(values.title, { lower: true }),
-            category: "all",
+            category: values.category,
           },
           image: picture,
         });
@@ -160,6 +169,19 @@ export default function UpdateActivity() {
                 )}
               />
 
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Category</FormLabel>
+                    <FormControl>
+                      <Input placeholder="ex: Instalasi" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="content"

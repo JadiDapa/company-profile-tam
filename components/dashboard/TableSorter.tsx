@@ -1,4 +1,4 @@
-import { ArrowUpDown } from "lucide-react";
+import { RiArrowUpDownLine as ArrowUpDown } from "react-icons/ri";
 import { Column } from "@tanstack/react-table";
 
 type TableSorterProps = {

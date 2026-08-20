@@ -7,25 +7,25 @@ import Underline from "@tiptap/extension-underline";
 import TextStyle from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
 import {
-  Bold,
-  Italic,
-  Strikethrough,
-  Code,
-  Heading1,
-  Heading2,
-  Heading3,
-  Heading4,
-  Heading5,
-  Heading6,
-  List,
-  ListOrdered,
-  Quote,
-  Minus,
-  Pilcrow,
-  Undo2,
-  Redo2,
-  Underline as UnderlineIcon,
-} from "lucide-react";
+  RiBold as Bold,
+  RiItalic as Italic,
+  RiStrikethrough as Strikethrough,
+  RiCodeLine as Code,
+  RiH1 as Heading1,
+  RiH2 as Heading2,
+  RiH3 as Heading3,
+  RiH4 as Heading4,
+  RiH5 as Heading5,
+  RiH6 as Heading6,
+  RiListUnordered as List,
+  RiListOrdered as ListOrdered,
+  RiDoubleQuotesL as Quote,
+  RiSubtractLine as Minus,
+  RiParagraph as Pilcrow,
+  RiArrowGoBackLine as Undo2,
+  RiArrowGoForwardLine as Redo2,
+  RiUnderline as UnderlineIcon,
+} from "react-icons/ri";
 
 interface Props {
   value: string;

@@ -9,17 +9,20 @@ import { revalidatePath } from "next/cache";
 import z from "zod";
 import { currentUser } from "@clerk/nextjs/server";
 import { UserRole } from "@/generated/prisma";
+import { requireAuth } from "@/lib/requireAuth";
 
 export async function createUser(input: z.input<typeof CreateUserSchema>) {
+  await requireAuth();
+
   const data = CreateUserSchema.parse({
-    password: input.password,
     username: input.username,
     fullName: input.fullName,
+    role: input.role,
   });
 
   await UserService.create(data);
 
-  revalidatePath("/users");
+  revalidatePath("/dashboard/users");
 }
 export async function getUser() {
   const clerkUser = await currentUser();
@@ -45,12 +48,21 @@ export async function updateUser(
   userId: number,
   input: z.input<typeof UpdateUserSchema>,
 ) {
+  await requireAuth();
+
   const data = UpdateUserSchema.parse(input);
 
   await UserService.update(userId, {
     ...data,
   });
 
-  revalidatePath("/users/" + input.username);
-  revalidatePath("/users");
+  revalidatePath("/dashboard/users");
+}
+
+export async function deleteUser(userId: number) {
+  await requireAuth();
+
+  await UserService.delete(userId);
+
+  revalidatePath("/dashboard/users");
 }

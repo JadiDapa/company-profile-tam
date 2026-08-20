@@ -12,7 +12,7 @@ export default function Hero() {
         className="z-0 object-cover object-center opacity-50"
       />
 
-      <div className="relative z-10 mt-52 flex w-full flex-col items-center justify-center gap-7 px-4 lg:mt-32 lg:px-28">
+      <div className="relative z-10 mt-32 flex w-full flex-col items-center justify-center gap-7 px-4 lg:px-28">
         <h1 className="text-center">
           <span className="text-2xl font-medium lg:text-start lg:text-4xl/relaxed">
             Empowering Infrastructure Through
@@ -38,7 +38,7 @@ export default function Hero() {
         </div>
       </div>
       <div className="relative w-full">
-        <div className="relative mx-auto mt-24 h-[200px] w-[320px] overflow-hidden rounded-lg rounded-b-none bg-blue-200 p-4 pb-0 lg:mt-12 lg:h-[400px] lg:w-[800px]">
+        <div className="bg-primary relative mx-auto mt-16 h-[180px] w-[85vw] max-w-[320px] overflow-hidden rounded-lg rounded-b-none p-4 pb-0 sm:h-[200px] lg:mt-12 lg:h-[400px] lg:w-[800px] lg:max-w-none">
           <div className="relative h-full w-full overflow-hidden rounded-md rounded-b-none">
             <Image
               src={"/images/hero-1.jpg"}
@@ -48,7 +48,7 @@ export default function Hero() {
             />
           </div>
         </div>
-        <div className="absolute bottom-6 left-20 hidden h-[240px] w-[240px] overflow-hidden rounded-lg bg-yellow-200 p-2 lg:block">
+        <div className="bg-primary/70 absolute bottom-6 left-20 hidden h-[240px] w-[240px] overflow-hidden rounded-lg p-2 lg:block">
           <div className="relative h-full w-full overflow-hidden rounded-md">
             <Image
               src={
@@ -60,7 +60,7 @@ export default function Hero() {
             />
           </div>
         </div>
-        <div className="absolute top-12 right-32 hidden h-[120px] w-[200px] overflow-hidden rounded-lg bg-red-300 p-1.5 lg:block">
+        <div className="bg-primary/70 absolute top-12 right-32 hidden h-[120px] w-[200px] overflow-hidden rounded-lg p-1.5 lg:block">
           <div className="relative h-full w-full overflow-hidden rounded-md">
             <Image
               src={
