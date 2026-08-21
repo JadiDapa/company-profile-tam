@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
 
+import FadeIn from "@/components/root/FadeIn";
+
 const partners = [
   {
     name: "Hikvision",
@@ -35,9 +37,9 @@ const partners = [
 export default function Partners() {
   return (
     <section id="partners" className="bg-primary/5 relative py-4">
-      <p className="text-muted-foreground text-center font-medium">
+      <FadeIn className="text-muted-foreground text-center font-medium" as="p">
         We Trusted By <strong>200+</strong> Companies
-      </p>
+      </FadeIn>
       <div className="mt-6 flex w-full items-center justify-between">
         <Marquee speed={45} pauseOnHover pauseOnClick gradient={false}>
           {partners.map((partner, index) => (

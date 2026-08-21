@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import { RiArrowRightSLine as ChevronRight } from "react-icons/ri";
 import { services } from "@/lib/data/services";
 
+import FadeIn from "@/components/root/FadeIn";
+import { StaggerGroup, StaggerItem } from "@/components/root/StaggerGroup";
+
 export default function Services() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -37,7 +40,7 @@ export default function Services() {
         fill
         className="z-0 object-cover object-center opacity-30"
       />
-      <div className="relative z-10 mb-12 flex flex-col items-center gap-4 text-center">
+      <FadeIn className="relative z-10 mb-12 flex flex-col items-center gap-4 text-center">
         <div className="flex max-w-fit items-stretch gap-0.5">
           <div className="bg-primary w-1 shrink-0 -skew-x-12" />
           <div className="text-primary border-primary -skew-x-12 border-2 bg-transparent px-4 py-0.5">
@@ -53,71 +56,77 @@ export default function Services() {
           get one team handling your IT needs instead of juggling multiple
           vendors.
         </p>
-      </div>
+      </FadeIn>
 
-      <div className="relative mt-8 flex w-full flex-col flex-wrap justify-center gap-4 sm:flex-row md:gap-5 lg:gap-6">
-        {services.map((service) => {
+      <StaggerGroup className="relative mt-8 flex w-full flex-col flex-wrap justify-center gap-4 sm:flex-row md:gap-5 lg:gap-6">
+        {services.map((service, index) => {
           const isExpanded = isMobile || expandedId === service.slug;
 
           return (
-            <div
+            <StaggerItem
               key={service.slug}
-              className={`group relative h-[280px] cursor-pointer rounded-lg transition-all duration-300 ease-in-out hover:scale-105 lg:h-[360px] ${
+              index={index}
+              direction="down"
+              className={`h-[280px] lg:h-[360px] ${
                 isExpanded
                   ? "w-full sm:w-[25vw]"
                   : "w-full sm:w-[32vw] lg:w-[17vw]"
               }`}
-              onClick={() => toggleExpand(service.slug)}
             >
-              <Image
-                src={service.image || "/placeholder.svg"}
-                alt={service.name}
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 32vw, 17vw"
-                className="rounded-lg object-cover"
-              />
-              <div className="bg-primary/40 absolute h-full w-full rounded-lg" />
-              {/* <div className="absolute top-6 left-6 grid size-10 place-items-center rounded-lg border border-slate-200 bg-white/20">
-                <service.icon className="size-6 text-slate-200" />
-              </div> */}
+              <div
+                className="group relative h-full w-full cursor-pointer rounded-lg transition-all duration-300 ease-in-out hover:scale-105"
+                onClick={() => toggleExpand(service.slug)}
+              >
+                <Image
+                  src={service.image || "/placeholder.svg"}
+                  alt={service.name}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 32vw, 17vw"
+                  className="rounded-lg object-cover"
+                />
+                <div className="bg-primary/40 absolute h-full w-full rounded-lg" />
+                {/* <div className="absolute top-6 left-6 grid size-10 place-items-center rounded-lg border border-slate-200 bg-white/20">
+                  <service.icon className="size-6 text-slate-200" />
+                </div> */}
 
-              <div className="absolute flex h-full w-full flex-col justify-end p-4 text-white md:p-5 lg:p-6">
-                <div className="flex items-center justify-between gap-2">
-                  <div>
-                    <h3 className="text-base font-semibold md:text-lg lg:text-2xl">
-                      {service.name}
-                    </h3>
+                <div className="absolute flex h-full w-full flex-col justify-end p-4 text-white md:p-5 lg:p-6">
+                  <div className="flex items-center justify-between gap-2">
+                    <div>
+                      <h3 className="text-base font-semibold md:text-lg lg:text-2xl">
+                        {service.name}
+                      </h3>
 
-                    {isExpanded && (
-                      <div className="mt-4 opacity-100 transition-all duration-300">
-                        <p className="line-clamp-3 text-sm">
-                          {service.description}
-                        </p>
-                        <Link
-                          href={`/services#${service.slug}`}
-                          className="mt-4 flex max-w-fit items-center rounded-full bg-white px-4 py-2 text-sm font-medium text-black"
-                        >
-                          Detail <ChevronRight className="ml-1 h-4 w-4" />
-                        </Link>
+                      {isExpanded && (
+                        <div className="mt-4 opacity-100 transition-all duration-300">
+                          <p className="line-clamp-3 text-sm">
+                            {service.description}
+                          </p>
+                          <Link
+                            href={`/services#${service.slug}`}
+                            className="mt-4 flex max-w-fit items-center rounded-full bg-white px-4 py-2 text-sm font-medium text-black"
+                          >
+                            Detail <ChevronRight className="ml-1 h-4 w-4" />
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+
+                    {!isMobile && (
+                      <div
+                        className={`rounded-full border border-slate-200 bg-white/20 p-1 transition-all duration-300 ${
+                          isExpanded ? "rotate-90" : ""
+                        }`}
+                      >
+                        <ChevronRight className="size-4 md:size-6" />
                       </div>
                     )}
                   </div>
-
-                  {!isMobile && (
-                    <div
-                      className={`rounded-full border border-slate-200 bg-white/20 p-1 transition-all duration-300 ${
-                        isExpanded ? "rotate-90" : ""
-                      }`}
-                    >
-                      <ChevronRight className="size-4 md:size-6" />
-                    </div>
-                  )}
                 </div>
               </div>
-            </div>
+            </StaggerItem>
           );
         })}
-      </div>
+      </StaggerGroup>
     </section>
   );
 }

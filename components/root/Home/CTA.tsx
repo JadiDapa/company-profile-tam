@@ -6,13 +6,15 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
+import FadeIn from "@/components/root/FadeIn";
+
 export default function CTA() {
   return (
     <section
       id="CTA"
       className="bg-primary/5 relative flex w-full flex-col items-center justify-between px-4 pb-28 lg:flex-row lg:px-28"
     >
-      <div className="relative z-10 w-full overflow-hidden rounded-2xl border px-4 py-16 text-white lg:px-0 lg:py-24">
+      <FadeIn className="relative z-10 w-full overflow-hidden rounded-2xl border px-4 py-16 text-white lg:px-0 lg:py-24">
         <div className="relative z-20 flex w-full flex-col items-center gap-5 text-center">
           <h2 className="text-2xl font-medium sm:text-3xl lg:text-4xl">
             Ready To
@@ -43,7 +45,7 @@ export default function CTA() {
           className="object-cover object-top brightness-75"
         />
         <div className="bg-primary/30 absolute inset-0 z-10" />
-      </div>
+      </FadeIn>
     </section>
   );
 }

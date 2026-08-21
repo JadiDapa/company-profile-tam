@@ -2,6 +2,8 @@ import Image from "next/image";
 import { MarqueeGallery } from "./GalleryMarquee";
 import { getAllGalleries } from "@/app/actions/gallery.action";
 
+import FadeIn from "@/components/root/FadeIn";
+
 export default async function Gallery() {
   const galleries = await getAllGalleries();
 
@@ -15,7 +17,7 @@ export default async function Gallery() {
         fill
         className="z-0 object-cover object-center opacity-30"
       />
-      <div className="mb-12 flex w-full flex-col items-center justify-between gap-4 px-4 text-center lg:px-28">
+      <FadeIn className="mb-12 flex w-full flex-col items-center justify-between gap-4 px-4 text-center lg:px-28">
         <div className="flex max-w-fit items-stretch gap-0.5">
           <div className="bg-primary w-1 shrink-0 -skew-x-12" />
           <div className="text-primary border-primary -skew-x-12 border-2 bg-transparent px-4 py-0.5">
@@ -30,7 +32,7 @@ export default async function Gallery() {
           Take a look at the projects and installations we have completed
           for clients across different industries and locations.
         </p>
-      </div>
+      </FadeIn>
 
       <MarqueeGallery data={galleries} />
     </section>

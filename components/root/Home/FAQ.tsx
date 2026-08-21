@@ -7,6 +7,8 @@ import {
 import { RiPhoneLine as Phone } from "react-icons/ri";
 import Image from "next/image";
 
+import FadeIn from "@/components/root/FadeIn";
+
 const faqs = [
   {
     question: "How can I contact your team?",
@@ -37,7 +39,7 @@ export default function FAQ() {
       className="bg-primary/5 relative flex w-full flex-col items-center justify-between gap-12 px-4 py-28 lg:flex-row lg:px-28"
     >
       {/* Left Content */}
-      <div className="relative z-10 flex-1 space-y-4">
+      <FadeIn direction="right" className="relative z-10 flex-1 space-y-4">
         <div className="flex max-w-fit items-stretch gap-0.5">
           <div className="bg-primary w-1 shrink-0 -skew-x-12" />
           <div className="text-primary border-primary -skew-x-12 border-2 bg-transparent px-4 py-0.5">
@@ -66,10 +68,14 @@ export default function FAQ() {
             </AccordionItem>
           ))}
         </Accordion>
-      </div>
+      </FadeIn>
 
       {/* Right Image */}
-      <div className="relative flex w-full flex-1 cursor-pointer items-center justify-center px-4 lg:px-12">
+      <FadeIn
+        direction="left"
+        delay={0.1}
+        className="relative flex w-full flex-1 cursor-pointer items-center justify-center px-4 lg:px-12"
+      >
         <div className="border-primary absolute bottom-0 left-8 z-20 hidden size-36 flex-col items-center justify-center gap-0.5 rounded-full border-6 bg-white p-4 text-center shadow-2xl lg:flex">
           <Phone className="text-primary size-14" />
           <p className="text-primary text-lg font-medium">Contact Us!</p>
@@ -83,7 +89,7 @@ export default function FAQ() {
             className="object-cover object-center"
           />
         </div>
-      </div>
+      </FadeIn>
     </section>
   );
 }
