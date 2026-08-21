@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import FadeIn from "@/components/root/FadeIn";
+
 interface PageHeaderProps {
   page: string;
   title: string;
@@ -22,7 +24,7 @@ export default function PageHeader({
         className="z-0 object-cover object-center opacity-50"
       />
 
-      <div className="relative z-10 mt-24 flex w-full flex-col items-center justify-center gap-7 px-4 lg:mt-32 lg:px-28">
+      <FadeIn className="relative z-10 mt-24 flex w-full flex-col items-center justify-center gap-7 px-4 lg:mt-32 lg:px-28">
         <div className="flex flex-col items-center space-y-2">
           <div className="flex max-w-fit items-stretch gap-0.5">
             <div className="bg-primary w-1 shrink-0 -skew-x-12" />
@@ -43,7 +45,7 @@ export default function PageHeader({
         <p className="max-w-2xl text-center text-sm text-slate-700 lg:text-base">
           {subtitle}
         </p>
-      </div>
+      </FadeIn>
     </section>
   );
 }

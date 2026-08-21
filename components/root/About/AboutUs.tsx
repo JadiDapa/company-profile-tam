@@ -3,13 +3,15 @@ import { RiArrowRightSLine as ChevronRight } from "react-icons/ri";
 import Image from "next/image";
 import Link from "next/link";
 
+import FadeIn from "@/components/root/FadeIn";
+
 export default function AboutUs() {
   return (
     <section
       id="about"
       className="bg-primary/5 relative flex w-full flex-col items-center justify-between gap-12 px-4 py-20 lg:flex-row lg:gap-0 lg:py-40 lg:px-28"
     >
-      <div className="flex-1 space-y-4">
+      <FadeIn direction="right" className="flex-1 space-y-4">
         <div className="flex max-w-fit items-stretch gap-0.5">
           <div className="bg-primary w-1 shrink-0 -skew-x-12" />
           <div className="text-primary border-primary -skew-x-12 border-2 bg-transparent px-4 py-0.5">
@@ -31,8 +33,12 @@ export default function AboutUs() {
             <ChevronRight className="size-5" />
           </Button>
         </div>
-      </div>
-      <div className="relative flex flex-1 items-center justify-center px-4 lg:px-12">
+      </FadeIn>
+      <FadeIn
+        direction="left"
+        delay={0.1}
+        className="relative flex flex-1 items-center justify-center px-4 lg:px-12"
+      >
         <div className="border-primary absolute -bottom-4 left-0 z-20 flex size-24 flex-col items-center justify-center gap-0.5 rounded-full border-4 bg-white p-4 text-center shadow-2xl lg:size-36 lg:border-6">
           <p className="text-primary text-2xl font-medium lg:text-4xl">100%</p>
           <p className="text-xs lg:text-sm">Customer Satisfaction</p>
@@ -47,7 +53,7 @@ export default function AboutUs() {
           />
         </div>
         <div className="absolute -top-12 right-0 z-0 hidden h-60 w-[400px] rounded-md bg-red-200 lg:block" />
-      </div>
+      </FadeIn>
     </section>
   );
 }

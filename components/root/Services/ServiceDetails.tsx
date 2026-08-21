@@ -2,6 +2,9 @@ import Image from "next/image";
 import { RiCheckboxLine as CheckSquare2 } from "react-icons/ri";
 import { services } from "@/lib/data/services";
 
+import FadeIn from "@/components/root/FadeIn";
+import { StaggerGroup, StaggerItem } from "@/components/root/StaggerGroup";
+
 export default function ServiceDetails() {
   return (
     <div className="relative">
@@ -23,7 +26,10 @@ export default function ServiceDetails() {
               className="z-0 object-cover object-center opacity-30"
             />
 
-            <div className="relative order-2 flex flex-1 items-center justify-center px-4 lg:order-none lg:px-12">
+            <FadeIn
+              direction={reversed ? "right" : "left"}
+              className="relative order-2 flex flex-1 items-center justify-center px-4 lg:order-none lg:px-12"
+            >
               <div className="relative z-10 h-56 w-full max-w-[480px] overflow-hidden rounded-md shadow-xl lg:h-80">
                 <Image
                   src={service.image}
@@ -37,9 +43,13 @@ export default function ServiceDetails() {
                   reversed ? "left-0" : "right-0"
                 }`}
               />
-            </div>
+            </FadeIn>
 
-            <div className="relative z-10 order-1 flex-1 space-y-4 lg:order-none">
+            <FadeIn
+              direction={reversed ? "left" : "right"}
+              delay={0.1}
+              className="relative z-10 order-1 flex-1 space-y-4 lg:order-none"
+            >
               <div className="flex items-center gap-4">
                 <h2 className="text-3xl font-medium lg:text-5xl">
                   {service.name}
@@ -51,17 +61,22 @@ export default function ServiceDetails() {
               <p className="text-muted-foreground max-w-2xl text-sm lg:text-base">
                 {service.description}
               </p>
-              <div className="space-y-3 pt-2">
+              <StaggerGroup className="space-y-3 pt-2">
                 {service.points.map((point, i) => (
-                  <div key={i} className="flex items-start gap-4">
+                  <StaggerItem
+                    key={i}
+                    index={i}
+                    direction={reversed ? "left" : "right"}
+                    className="flex items-start gap-4"
+                  >
                     <CheckSquare2 className="text-primary mt-0.5 size-4 lg:size-6" />
                     <p className="text-muted-foreground flex-1 text-sm lg:text-base">
                       {point}
                     </p>
-                  </div>
+                  </StaggerItem>
                 ))}
-              </div>
-            </div>
+              </StaggerGroup>
+            </FadeIn>
           </section>
         );
       })}

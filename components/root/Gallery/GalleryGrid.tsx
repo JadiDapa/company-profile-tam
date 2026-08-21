@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import SearchBar from "@/components/root/SearchBar";
+import { StaggerGroup, StaggerItem } from "@/components/root/StaggerGroup";
 import { GalleryType } from "@/lib/validators/gallery.validator";
 
 export default function GalleryGrid({
@@ -33,13 +34,15 @@ export default function GalleryGrid({
       </div>
 
       {filteredGalleries.length > 0 ? (
-        <section
+        <StaggerGroup
+          as="section"
           id="gallery-list"
           className="grid w-full grid-cols-1 gap-6 lg:grid-cols-3"
         >
-          {filteredGalleries.map((gallery) => (
-            <div
+          {filteredGalleries.map((gallery, index) => (
+            <StaggerItem
               key={gallery.id}
+              index={index % 3}
               className="group relative w-full overflow-hidden rounded-lg"
             >
               <div className="relative z-0 h-56 w-full overflow-hidden shadow-md">
@@ -63,9 +66,9 @@ export default function GalleryGrid({
                   </div>
                 </div>
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </section>
+        </StaggerGroup>
       ) : (
         <p className="text-primary/60 text-center">No galleries found.</p>
       )}

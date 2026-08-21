@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ActivityType } from "@/lib/validators/activity.validator";
 import SearchBar from "@/components/root/SearchBar";
+import { StaggerGroup, StaggerItem } from "@/components/root/StaggerGroup";
 import {
   Select,
   SelectContent,
@@ -66,32 +67,34 @@ export default function ActivityList({
       </div>
 
       {filteredActivities.length > 0 ? (
-        <div className="grid grid-cols-1 gap-12 pt-6 lg:grid-cols-3">
-          {filteredActivities.map((activity) => (
-            <Link href={`/activities/${activity.slug}`} key={activity.id}>
-              <div className="relative h-64 w-full overflow-hidden rounded-lg shadow-md">
-                <Image
-                  src={activity.image?.url ?? "/images/image-placeholder.svg"}
-                  alt={activity.title}
-                  fill
-                  className="object-cover object-center"
-                />
-              </div>
-              <h2 className="mt-3 line-clamp-2 text-xl font-semibold">
-                {activity.title}
-              </h2>
-              <div className="text-muted-foreground mt-1.5 flex items-center gap-1.5 text-xs">
-                <span className="font-medium tracking-wide uppercase">
-                  {activity.category}
-                </span>
-                <span className="opacity-40">•</span>
-                <span className="opacity-70">
-                  {format(activity.createdAt, "dd MMM yyyy")}
-                </span>
-              </div>
-            </Link>
+        <StaggerGroup className="grid grid-cols-1 gap-12 pt-6 lg:grid-cols-3">
+          {filteredActivities.map((activity, index) => (
+            <StaggerItem key={activity.id} index={index % 3}>
+              <Link href={`/activities/${activity.slug}`}>
+                <div className="relative h-64 w-full overflow-hidden rounded-lg shadow-md">
+                  <Image
+                    src={activity.image?.url ?? "/images/image-placeholder.svg"}
+                    alt={activity.title}
+                    fill
+                    className="object-cover object-center"
+                  />
+                </div>
+                <h2 className="mt-3 line-clamp-2 text-xl font-semibold">
+                  {activity.title}
+                </h2>
+                <div className="text-muted-foreground mt-1.5 flex items-center gap-1.5 text-xs">
+                  <span className="font-medium tracking-wide uppercase">
+                    {activity.category}
+                  </span>
+                  <span className="opacity-40">•</span>
+                  <span className="opacity-70">
+                    {format(activity.createdAt, "dd MMM yyyy")}
+                  </span>
+                </div>
+              </Link>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGroup>
       ) : (
         <p className="text-primary/60 pt-12 text-center">
           No activities found.

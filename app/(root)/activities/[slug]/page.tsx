@@ -17,6 +17,8 @@ import {
   getActivityBySlug,
   getAllActivities,
 } from "@/app/actions/activity.action";
+import FadeIn from "@/components/root/FadeIn";
+import { StaggerGroup, StaggerItem } from "@/components/root/StaggerGroup";
 
 function stripHtml(html: string, maxLength = 160) {
   const text = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
@@ -94,7 +96,8 @@ export default async function NewsDetail({
 
     return (
       <div className="flex flex-col justify-between gap-12 px-4 pt-24 pb-24 lg:flex-row lg:px-24">
-        <section
+        <FadeIn
+          as="section"
           id="berita"
           className="flex w-full flex-[2] flex-col gap-4 lg:gap-6"
         >
@@ -155,20 +158,22 @@ export default async function NewsDetail({
               </div>
             </div>
           </div>
-        </section>
-        <section id="#berita-lainnya" className="flex-[1]">
+        </FadeIn>
+        <FadeIn as="section" id="#berita-lainnya" direction="left" delay={0.1} className="flex-[1]">
           <h3 className="border-secondary text-primary max-w-fit border-b-4 text-xl font-bold sm:text-3xl lg:text-2xl">
             Berita lainnya
           </h3>
-          <div className="mt-6 flex cursor-pointer flex-col divide-y">
+          <StaggerGroup as="div" className="mt-6 flex cursor-pointer flex-col divide-y">
             {otherNews &&
               Array.isArray(otherNews) &&
               otherNews
                 .filter((news) => news.slug !== slug)
                 .slice(0, 10)
                 .map((item, index) => (
-                  <div
+                  <StaggerItem
                     key={index}
+                    index={index}
+                    staggerStep={0.08}
                     className="flex flex-col justify-center gap-1 py-2 first:pt-0 lg:py-3"
                   >
                     <Link
@@ -182,10 +187,10 @@ export default async function NewsDetail({
                         {formatDate(item.createdAt!.toString())}
                       </div>
                     </div>
-                  </div>
+                  </StaggerItem>
                 ))}
-          </div>
-        </section>
+          </StaggerGroup>
+        </FadeIn>
       </div>
     );
   }

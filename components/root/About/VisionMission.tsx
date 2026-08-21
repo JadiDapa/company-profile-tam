@@ -1,5 +1,8 @@
 import Image from "next/image";
 
+import FadeIn from "@/components/root/FadeIn";
+import { StaggerGroup, StaggerItem } from "@/components/root/StaggerGroup";
+
 const missionPoints = [
   "To provide satisfying services to customers, business partners, and enterprises",
   "To become the best solution and a trusted partner for every customer, business partner, and enterprise",
@@ -16,7 +19,7 @@ export default function VisionMission() {
         className="z-0 object-cover object-center opacity-30"
       />
       <div className="relative z-10 container mx-auto px-4 md:px-6">
-        <div className="mb-12 flex flex-col items-center gap-4 text-center">
+        <FadeIn className="mb-12 flex flex-col items-center gap-4 text-center">
           <div className="flex max-w-fit items-stretch gap-0.5">
             <div className="bg-primary w-1 shrink-0 -skew-x-12" />
             <div className="text-primary border-primary -skew-x-12 border-2 bg-transparent px-4 py-0.5">
@@ -32,10 +35,10 @@ export default function VisionMission() {
             their operations without worrying about downtime or outdated
             systems.
           </p>
-        </div>
+        </FadeIn>
 
         <div className="mx-auto flex max-w-3xl flex-col divide-y divide-gray-200">
-          <div className="py-10">
+          <FadeIn direction="right" className="py-10">
             <h3 className="mb-4 text-2xl font-medium text-gray-800">
               Our Vision
             </h3>
@@ -51,24 +54,27 @@ export default function VisionMission() {
               transformation, delivering solutions that not only meet
               current needs but anticipate future challenges.
             </p>
-          </div>
+          </FadeIn>
 
-          <div className="py-10">
+          <FadeIn direction="left" className="py-10">
             <h3 className="mb-4 text-2xl font-medium text-gray-800">
               Our Mission
             </h3>
-            <ul className="space-y-3">
+            <StaggerGroup as="ul" className="space-y-3">
               {missionPoints.map((point, index) => (
-                <li
+                <StaggerItem
                   key={index}
+                  as="li"
+                  index={index}
+                  direction="left"
                   className="flex gap-3 text-base leading-relaxed text-gray-700"
                 >
                   <span className="text-primary">—</span>
                   <span>{point}</span>
-                </li>
+                </StaggerItem>
               ))}
-            </ul>
-          </div>
+            </StaggerGroup>
+          </FadeIn>
         </div>
       </div>
     </section>

@@ -26,6 +26,7 @@ interface FadeInProps {
   amount?: number;
   className?: string;
   as?: keyof typeof TAGS;
+  id?: string;
 }
 
 export default function FadeIn({
@@ -37,11 +38,13 @@ export default function FadeIn({
   amount = 0.2,
   className,
   as = "div",
+  id,
 }: FadeInProps) {
   const MotionTag = TAGS[as];
 
   return (
     <MotionTag
+      id={id}
       className={className}
       initial="hidden"
       whileInView="visible"
