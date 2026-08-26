@@ -27,9 +27,8 @@ export default function Hero() {
           </span>
         </h1>
         <p className="max-w-2xl text-center text-sm text-slate-700 lg:text-base">
-          Achieve seamless technology and advanced networks with IT solutions
-          tailored for modern infrastructure. Each solution supports growth,
-          control, and long-term reliability.
+          At Taruna Anugerah Mandiri we turn complexity into control with IT
+          solutions built for reliable networks and long-term growth.
         </p>
         <div className="flex items-center gap-4">
           <Button className="flex h-10 rounded-full px-6 py-2">
@@ -37,7 +36,8 @@ export default function Hero() {
           </Button>
           <Button className="text-primary flex h-10 rounded-full border bg-transparent px-6 py-2">
             <Link href="/about">
-              Learn More<span className="sr-only"> about Taruna Anugrah Mandiri</span>
+              Learn More
+              <span className="sr-only"> about Taruna Anugrah Mandiri</span>
             </Link>
           </Button>
         </div>
